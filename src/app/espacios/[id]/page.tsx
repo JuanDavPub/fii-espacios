@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Icon from "@/components/Icon";
+import QuickActions from "@/components/QuickActions";
 import { ESPACIOS, getBloque, getEspacio, getEspaciosDeBloque } from "@/data/bloques";
 import { TIPOS_INFO } from "@/data/tipos";
 import EspacioCard from "@/components/EspacioCard";
@@ -13,6 +15,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const espacio = getEspacio(id);
   return { title: espacio ? `${espacio.nombre} | Espacios FII` : "Espacio no encontrado" };
+}
+
+function InfoTile({ label, value, icon }: { label: string; value: React.ReactNode; icon: "building" | "home" | "users" | "archive" }) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-[var(--border-soft)] bg-[var(--secondary)] px-4 py-3">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[var(--primary)] shadow-sm">
+        <Icon name={icon} className="h-4.5 w-4.5" />
+      </span>
+      <div className="min-w-0">
+        <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-muted)]">{label}</dt>
+        <dd className="mt-0.5 truncate text-sm font-semibold text-[var(--text)]">{value}</dd>
+      </div>
+    </div>
+  );
 }
 
 export default async function EspacioDetailPage({
@@ -32,84 +48,110 @@ export default async function EspacioDetailPage({
   );
 
   return (
-    <div className="flex flex-col gap-8">
-      <div>
-        <Link href="/espacios" className="text-sm text-[#003865] hover:underline">
-          ← Volver al buscador
-        </Link>
-        <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
+    <div className="flex flex-col gap-6">
+      <section className="surface-card scroll-reveal relative overflow-hidden p-6 sm:p-7">
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-1.5"
+          style={{ background: tipoInfo.accent }}
+        />
+        <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-start">
           <div>
-            <p className="font-mono text-sm text-neutral-500">{espacio.codigo}</p>
-            <h1 className="text-2xl font-bold text-[#003865]">{espacio.nombre}</h1>
-          </div>
-          <span className={`rounded-full px-3 py-1.5 text-sm font-medium ${tipoInfo.color}`}>
-            {tipoInfo.etiqueta}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-3">
-        <div className="sm:col-span-2 flex flex-col gap-4">
-          <p className="text-neutral-700">{espacio.descripcion}</p>
-
-          {bloque && (
-            <div className="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
-              <div className="relative aspect-[16/9] w-full">
-                <Image
-                  src={planta?.imagen ?? bloque.imagen}
-                  alt={`Plano de ${bloque.nombre} — ${espacio.planta}`}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <p className="border-t border-neutral-200 bg-white px-4 py-2 text-xs text-neutral-500">
-                Ubicación de referencia dentro del {bloque.nombre} — {espacio.planta}.
-              </p>
+            <Link
+              href="/espacios"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)] transition hover:text-[var(--primary-hover)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+            >
+              <Icon name="arrowLeft" />
+              Volver al buscador
+            </Link>
+            <p className="mt-5 font-mono text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)]">
+              {espacio.codigo}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{espacio.nombre}</h1>
+              <span className={`badge-pill ${tipoInfo.color}`}>{tipoInfo.etiqueta}</span>
             </div>
-          )}
-        </div>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">{espacio.descripcion}</p>
+          </div>
 
-        <aside className="flex flex-col gap-3 rounded-lg border border-neutral-200 p-4 h-fit">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
-            Ubicación
-          </h2>
-          <dl className="flex flex-col gap-2 text-sm">
-            <div className="flex justify-between gap-2">
-              <dt className="text-neutral-500">Bloque</dt>
-              <dd className="font-medium text-neutral-900">
-                {bloque ? (
-                  <Link href={`/bloques/${bloque.id}`} className="text-[#003865] hover:underline">
+          <QuickActions
+            title={espacio.nombre}
+            filename={`${espacio.id}.json`}
+            payload={{ espacio, bloque: bloque?.nombre ?? null }}
+          />
+        </div>
+      </section>
+
+      <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
+        <section className="surface-card overflow-hidden">
+          <div className="border-b border-[var(--divider)] px-5 py-4 sm:px-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Ubicacion visual
+            </p>
+            <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Plano de referencia</h2>
+          </div>
+          <div className="p-5 sm:p-6">
+            {bloque && (
+              <div className="overflow-hidden rounded-xl border border-[var(--border-soft)] bg-[var(--secondary)]">
+                <div className="relative aspect-[16/9] w-full">
+                  <Image
+                    src={planta?.imagen ?? bloque.imagen}
+                    alt={`Plano de ${bloque.nombre} - ${espacio.planta}`}
+                    fill
+                    className="object-contain p-3"
+                  />
+                </div>
+                <p className="border-t border-[var(--border-soft)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                  Ubicacion de referencia dentro del {bloque.nombre} - {espacio.planta}.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <aside className="surface-card overflow-hidden xl:h-fit">
+          <div className="border-b border-[var(--divider)] px-5 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Informacion
+            </p>
+            <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Datos del espacio</h2>
+          </div>
+          <dl className="grid gap-3 p-5">
+            <InfoTile
+              icon="building"
+              label="Bloque"
+              value={
+                bloque ? (
+                  <Link href={`/bloques/${bloque.id}`} className="text-[var(--primary)] hover:underline">
                     {bloque.nombre}
                   </Link>
                 ) : (
-                  "—"
-                )}
-              </dd>
-            </div>
-            <div className="flex justify-between gap-2">
-              <dt className="text-neutral-500">Planta</dt>
-              <dd className="font-medium text-neutral-900">{espacio.planta}</dd>
-            </div>
-            <div className="flex justify-between gap-2">
-              <dt className="text-neutral-500">Tipo</dt>
-              <dd className="font-medium text-neutral-900">{tipoInfo.etiqueta}</dd>
-            </div>
-            {espacio.capacidad && (
-              <div className="flex justify-between gap-2">
-                <dt className="text-neutral-500">Capacidad</dt>
-                <dd className="font-medium text-neutral-900">{espacio.capacidad} personas</dd>
-              </div>
-            )}
+                  "No definido"
+                )
+              }
+            />
+            <InfoTile icon="home" label="Planta" value={espacio.planta} />
+            <InfoTile icon="archive" label="Tipo" value={tipoInfo.etiqueta} />
+            <InfoTile
+              icon="users"
+              label="Capacidad"
+              value={espacio.capacidad ? `${espacio.capacidad} personas` : "No definida"}
+            />
           </dl>
         </aside>
       </div>
 
       {otrosEnBloque.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-neutral-900 border-b border-neutral-200 pb-2">
-            Otros espacios en {bloque?.nombre} — {espacio.planta}
-          </h2>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="surface-card overflow-hidden">
+          <div className="border-b border-[var(--divider)] px-5 py-4 sm:px-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
+              Relacionados
+            </p>
+            <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">
+              Otros espacios en {bloque?.nombre} - {espacio.planta}
+            </h2>
+          </div>
+          <div className="grid gap-4 p-5 md:grid-cols-2 xl:grid-cols-3">
             {otrosEnBloque.map((e) => (
               <EspacioCard key={e.id} espacio={e} />
             ))}
