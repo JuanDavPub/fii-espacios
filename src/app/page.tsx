@@ -1,65 +1,94 @@
-import Image from "next/image";
+import Link from "next/link";
+import { BLOQUES, ESPACIOS } from "@/data/bloques";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex flex-col gap-12">
+      <section className="flex flex-col gap-4">
+        <h1 className="text-3xl font-bold text-[#003865]">
+          Encuentra cualquier espacio de la facultad
+        </h1>
+        <p className="max-w-3xl text-neutral-700">
+          Esta guía reúne la información de los bloques A, B, C, D, E, F y G de la
+          Facultad de Ingeniería Industrial: aulas, laboratorios, talleres, oficinas,
+          auditorios y servicios. Explora por bloque o busca directamente el espacio
+          que necesitas.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/bloques"
+            className="rounded-md bg-[#003865] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#00518f] transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Explorar bloques
+          </Link>
+          <Link
+            href="/espacios"
+            className="rounded-md border border-[#003865] px-5 py-2.5 text-sm font-medium text-[#003865] hover:bg-blue-50 transition-colors"
           >
-            Documentation
-          </a>
+            Buscar un espacio
+          </Link>
         </div>
-      </main>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-xl font-semibold text-neutral-900">Bloques de la facultad</h2>
+          <span className="text-sm text-neutral-500">
+            {ESPACIOS.length} espacios registrados
+          </span>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {BLOQUES.map((bloque) => {
+            const total = ESPACIOS.filter((e) => e.bloqueId === bloque.id).length;
+            return (
+              <Link
+                key={bloque.id}
+                href={`/bloques/${bloque.id}`}
+                className="group flex flex-col gap-2 rounded-lg border border-neutral-200 p-5 hover:border-[#003865] hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-[#003865] group-hover:underline">
+                  {bloque.nombre}
+                </h3>
+                <p className="text-sm text-neutral-600">{bloque.resumen}</p>
+                <div className="mt-2 flex flex-wrap gap-2 text-xs text-neutral-500">
+                  <span className="rounded-full bg-neutral-100 px-2.5 py-1">
+                    {bloque.plantas.length === 1
+                      ? "1 nivel"
+                      : `${bloque.plantas.length} niveles`}
+                  </span>
+                  <span className="rounded-full bg-neutral-100 px-2.5 py-1">
+                    {total} espacios
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="rounded-lg bg-neutral-50 border border-neutral-200 p-6">
+        <h2 className="text-lg font-semibold text-neutral-900 mb-2">
+          ¿Cómo está organizada la facultad?
+        </h2>
+        <ul className="grid gap-2 text-sm text-neutral-700 sm:grid-cols-2">
+          <li>
+            <strong>Bloques A, B y C</strong> — conjunto principal en forma de &quot;U&quot;,
+            con planta baja, primera planta y segunda planta.
+          </li>
+          <li>
+            <strong>Bloque G de Aulas</strong> — edificio alargado de aulas en fila,
+            con planta baja y planta alta.
+          </li>
+          <li>
+            <strong>Bloque D y E</strong> — unidad en forma de L con laboratorios,
+            talleres y oficinas.
+          </li>
+          <li>
+            <strong>Bloque F</strong> — nave de talleres con bodega y baños, de un
+            solo nivel.
+          </li>
+        </ul>
+      </section>
     </div>
   );
 }
