@@ -26,11 +26,8 @@ type Espacio = {
   planta: { id: string; nombre: string };
 };
 
-const fieldClass =
-  "h-11 w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12";
-
-const areaClass =
-  "w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12 resize-none";
+const fieldClass = "fi";
+const areaClass = "fi-area";
 
 export default function EspaciosCrudClient({
   espacios,
@@ -134,14 +131,14 @@ export default function EspaciosCrudClient({
           </label>
           <label className="space-y-2">
             <span className="text-sm font-semibold text-[var(--text)]">Bloque</span>
-            <select value={filtroBloque} onChange={(e) => setFiltroBloque(e.target.value)} className={fieldClass}>
+            <select value={filtroBloque} onChange={(e) => setFiltroBloque(e.target.value)} className="fi fi-select">
               <option value="todos">Todos</option>
               {bloques.map((b) => <option key={b.id} value={b.id}>{b.nombre}</option>)}
             </select>
           </label>
           <label className="space-y-2">
             <span className="text-sm font-semibold text-[var(--text)]">Tipo</span>
-            <select value={filtroTipo} onChange={(e) => setFiltroTipo(e.target.value)} className={fieldClass}>
+            <select value={filtroTipo} onChange={(e) => setFiltroTipo(e.target.value)} className="fi fi-select">
               <option value="todos">Todos</option>
               {tipos.map((t) => <option key={t.id} value={t.id}>{t.etiqueta}</option>)}
             </select>
@@ -261,7 +258,7 @@ export default function EspaciosCrudClient({
           {/* Tipo */}
           <label className="space-y-1.5">
             <span className="text-sm font-semibold text-[var(--text)]">Tipo <span className="text-[var(--danger)]">*</span></span>
-            <select name="tipoId" required defaultValue={selected?.tipoId ?? ""} className={fieldClass}>
+            <select name="tipoId" required defaultValue={selected?.tipoId ?? ""} className="fi fi-select">
               <option value="">— Selecciona —</option>
               {tipos.map((t) => <option key={t.id} value={t.id}>{t.etiqueta}</option>)}
             </select>
@@ -279,7 +276,7 @@ export default function EspaciosCrudClient({
                 setFormBloqueId(ev.target.value);
                 const firstPlanta = bloques.find((b) => b.id === ev.target.value)?.plantas[0];
                 setFormPlantaId(firstPlanta?.id ?? "");
-              }} className={fieldClass}>
+              }} className="fi fi-select">
               <option value="">— Selecciona —</option>
               {bloques.map((b) => <option key={b.id} value={b.id}>{b.nombre}</option>)}
             </select>
@@ -288,7 +285,7 @@ export default function EspaciosCrudClient({
           <label className="space-y-1.5">
             <span className="text-sm font-semibold text-[var(--text)]">Planta <span className="text-[var(--danger)]">*</span></span>
             <select name="plantaId" required value={formPlantaId}
-              onChange={(ev) => setFormPlantaId(ev.target.value)} className={fieldClass}>
+              onChange={(ev) => setFormPlantaId(ev.target.value)} className="fi fi-select">
               <option value="">— Selecciona bloque primero —</option>
               {plantasDisponibles.map((p) => (
                 <option key={p.id} value={p.id}>{p.nombre}</option>

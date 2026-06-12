@@ -554,6 +554,187 @@ a { text-decoration: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SISTEMA DE DISEÑO — CAMPOS DE FORMULARIO
+   .fi = input/select base  ·  .fi-select = select con flecha personalizada
+   .fi-area = textarea      ·  .fi-file   = file input
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Campo base (input, select) ─────────────────────────────────────────── */
+.fi {
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+.fi::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.fi:hover:not(:focus):not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.fi:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.14);
+}
+
+.fi:disabled,
+.fi[disabled] {
+  background-color: var(--secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+/* ── Autofill: elimina fondo amarillo/azul de Chrome, Brave, Edge, Safari ── */
+.fi:-webkit-autofill,
+.fi:-webkit-autofill:hover,
+.fi:-webkit-autofill:focus,
+.fi:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--text) !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: var(--text);
+}
+
+/* ── Select con flecha personalizada ────────────────────────────────────── */
+.fi-select {
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.875rem;
+  cursor: pointer;
+}
+
+.fi-select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232b6cb0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* ── Textarea ────────────────────────────────────────────────────────────── */
+.fi-area {
+  display: block;
+  width: 100%;
+  min-height: 4rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  line-height: 1.55;
+  color: var(--text);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 0.75rem;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.fi-area::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.fi-area:hover:not(:focus):not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.fi-area:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.14);
+}
+
+.fi-area:disabled {
+  background-color: var(--secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+/* ── File input ──────────────────────────────────────────────────────────── */
+.fi-file {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text);
+  background-color: #ffffff;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 150ms ease;
+}
+
+.fi-file:hover:not(:focus) {
+  border-color: var(--text-muted);
+}
+
+.fi-file:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.14);
+}
+
+.fi-file::file-selector-button {
+  height: 1.875rem;
+  padding: 0 0.875rem;
+  margin-right: 0.75rem;
+  border: none;
+  border-radius: 0.45rem;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  -webkit-appearance: none;
+}
+
+.fi-file::file-selector-button:hover {
+  background-color: var(--primary-soft);
+}
+
+/* ── Fix autofill para floating labels (LoginForm — clase peer de Tailwind) */
+/* El autofill no dispara :not(:placeholder-shown), dejando el label encima
+   del valor autocompletado. Esta regla mueve el label arriba en ese caso.  */
+input.peer:-webkit-autofill ~ label,
+input.peer:autofill ~ label {
+  top: 8px !important;
+  transform: translateY(0) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #0A4A82 !important;
+}
+
+/* ── Autofill para inputs con clase peer (LoginForm) ────────────────────── */
+input.peer:-webkit-autofill,
+input.peer:-webkit-autofill:hover,
+input.peer:-webkit-autofill:focus {
+  -webkit-text-fill-color: #243447 !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: #243447;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    TOOLTIP ACCESIBLE (Bootstrap 5 compatible)
    ═══════════════════════════════════════════════════════════════════════════ */
 

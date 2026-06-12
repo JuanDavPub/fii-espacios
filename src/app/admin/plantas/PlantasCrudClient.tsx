@@ -27,11 +27,8 @@ type Planta = {
   _count: { espacios: number };
 };
 
-const fieldClass =
-  "h-11 w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12";
-
-const areaClass =
-  "w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12 resize-none";
+const fieldClass = "fi";
+const areaClass = "fi-area";
 
 export default function PlantasCrudClient({
   plantas,
@@ -173,7 +170,7 @@ export default function PlantasCrudClient({
           {/* Bloque */}
           <label className="space-y-1.5">
             <span className="text-sm font-semibold text-[var(--text)]">Bloque <span className="text-[var(--danger)]">*</span></span>
-            <select name="bloqueId" required defaultValue={selected?.bloqueId ?? ""} className={fieldClass}>
+            <select name="bloqueId" required defaultValue={selected?.bloqueId ?? ""} className="fi fi-select">
               <option value="">— Selecciona —</option>
               {bloques.map((b) => <option key={b.id} value={b.id}>{b.nombre}</option>)}
             </select>
@@ -202,7 +199,7 @@ export default function PlantasCrudClient({
           {selected && (
             <label className="space-y-1.5">
               <span className="text-sm font-semibold text-[var(--text)]">Estado</span>
-              <select name="activo" defaultValue={selected.activo.toString()} className={fieldClass}>
+              <select name="activo" defaultValue={selected.activo.toString()} className="fi fi-select">
                 <option value="true">Activo</option>
                 <option value="false">Inactivo</option>
               </select>

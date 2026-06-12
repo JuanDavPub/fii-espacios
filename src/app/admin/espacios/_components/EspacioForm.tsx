@@ -28,8 +28,9 @@ type EspacioFormValue = {
   equipamiento?: { equipamientoId: string; cantidad: number; estado: string | null; observaciones: string | null }[];
 };
 
-const inputClass = "h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm";
-const areaClass = "w-full rounded-lg border border-[var(--border-soft)] px-3 py-2 text-sm";
+const inputClass = "fi";
+const selectClass = "fi fi-select";
+const areaClass = "fi-area";
 
 export default function EspacioForm({
   action,
@@ -71,28 +72,28 @@ export default function EspacioForm({
       )}
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Tipo *</span>
-        <select name="tipoId" required defaultValue={espacio?.tipoId ?? ""} className={inputClass}>
+        <select name="tipoId" required defaultValue={espacio?.tipoId ?? ""} className={selectClass}>
           <option value="">Selecciona un tipo</option>
           {tipos.map((tipo) => <option key={tipo.id} value={tipo.id}>{tipo.etiqueta}</option>)}
         </select>
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Estado fisico</span>
-        <select name="estadoFisicoId" defaultValue={espacio?.estadoFisicoId ?? ""} className={inputClass}>
+        <select name="estadoFisicoId" defaultValue={espacio?.estadoFisicoId ?? ""} className={selectClass}>
           <option value="">Sin estado</option>
           {estados.map((estado) => <option key={estado.id} value={estado.id}>{estado.nombre}</option>)}
         </select>
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Bloque *</span>
-        <select name="bloqueId" required defaultValue={espacio?.bloqueId ?? ""} className={inputClass}>
+        <select name="bloqueId" required defaultValue={espacio?.bloqueId ?? ""} className={selectClass}>
           <option value="">Selecciona un bloque</option>
           {bloques.map((bloque) => <option key={bloque.id} value={bloque.id}>{bloque.nombre}</option>)}
         </select>
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Planta *</span>
-        <select name="plantaId" required defaultValue={espacio?.plantaId ?? ""} className={inputClass}>
+        <select name="plantaId" required defaultValue={espacio?.plantaId ?? ""} className={selectClass}>
           <option value="">Selecciona una planta</option>
           {bloques.map((bloque) => (
             <optgroup key={bloque.id} label={bloque.nombre}>
@@ -115,7 +116,7 @@ export default function EspacioForm({
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Acceso</span>
-        <select name="accesoPublico" defaultValue={(espacio?.accesoPublico ?? true).toString()} className={inputClass}>
+        <select name="accesoPublico" defaultValue={(espacio?.accesoPublico ?? true).toString()} className={selectClass}>
           <option value="true">Publico</option>
           <option value="false">Restringido</option>
         </select>

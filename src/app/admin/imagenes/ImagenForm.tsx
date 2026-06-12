@@ -44,7 +44,7 @@ export default function ImagenForm({
           value={entidad}
           onChange={(event) => setEntidad(event.target.value as Entidad)}
           disabled={Boolean(presetEntidad)}
-          className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm disabled:bg-[var(--secondary)]"
+          className="fi fi-select"
         >
           <option value="BLOQUE">Bloque</option>
           <option value="PLANTA">Planta</option>
@@ -60,7 +60,7 @@ export default function ImagenForm({
           required
           defaultValue={presetEntidadId ?? ""}
           disabled={Boolean(presetEntidadId)}
-          className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm disabled:bg-[var(--secondary)]"
+          className="fi fi-select"
         >
           <option value="">Selecciona un registro</option>
           {options.map((option) => (
@@ -72,7 +72,7 @@ export default function ImagenForm({
 
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Tipo *</span>
-        <select name="tipo" required className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm">
+        <select name="tipo" required className="fi fi-select">
           <option value="PLANO">Plano</option>
           <option value="REFERENCIAL">Referencial</option>
           <option value="FOTO">Foto</option>
@@ -83,7 +83,7 @@ export default function ImagenForm({
 
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Orden</span>
-        <input name="orden" type="number" defaultValue="0" className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm" />
+        <input name="orden" type="number" defaultValue="0" className="fi" />
       </label>
 
       <label className="space-y-1 sm:col-span-2">
@@ -103,7 +103,7 @@ export default function ImagenForm({
             reader.onload = () => setPreview(String(reader.result));
             reader.readAsDataURL(file);
           }}
-          className="block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm"
+          className="fi-file"
         />
         <p className="text-xs text-[var(--text-muted)]">PNG, JPG, WEBP o SVG. Maximo 2 MB.</p>
       </label>
@@ -118,12 +118,12 @@ export default function ImagenForm({
 
       <label className="space-y-1 sm:col-span-2">
         <span className="text-sm font-medium text-[var(--text)]">Nombre</span>
-        <input name="nombre" className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm" />
+        <input name="nombre" className="fi" />
       </label>
 
       <label className="space-y-1 sm:col-span-2">
         <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
-        <textarea name="descripcion" rows={3} className="w-full rounded-lg border border-[var(--border-soft)] px-3 py-2 text-sm" />
+        <textarea name="descripcion" rows={3} className="fi-area" />
       </label>
 
       <label className="flex items-center gap-2 text-sm font-medium text-[var(--text)]">

@@ -12,8 +12,7 @@ type Usuario = {
   createdAt: string;
 };
 
-const fieldClass =
-  "h-11 w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12";
+const fieldClass = "fi";
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("es-EC", {
@@ -307,7 +306,8 @@ export default function UsuariosCrudClient({
                       required={modalMode === "create"}
                       minLength={6}
                       placeholder={modalMode === "edit" ? "Dejar en blanco para no cambiarla" : "Minimo 6 caracteres"}
-                      className={`${fieldClass} pr-11`}
+                      className="fi"
+                      style={{ paddingRight: "2.75rem" }}
                     />
                     <button
                       type="button"
@@ -328,7 +328,7 @@ export default function UsuariosCrudClient({
                   <select
                     name="role"
                     defaultValue={selectedUser?.role ?? "USER"}
-                    className={fieldClass}
+                    className="fi fi-select"
                   >
                     <option value="USER">Usuario</option>
                     <option value="ADMIN">Administrador</option>

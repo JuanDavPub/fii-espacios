@@ -27,11 +27,8 @@ type Bloque = {
   _count: { espacios: number };
 };
 
-const fieldClass =
-  "h-11 w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12";
-
-const areaClass =
-  "w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12 resize-none";
+const fieldClass = "fi";
+const areaClass = "fi-area";
 
 type ModalMode = "create" | "edit" | "plantas" | null;
 

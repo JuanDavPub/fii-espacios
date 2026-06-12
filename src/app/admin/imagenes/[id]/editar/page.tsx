@@ -30,7 +30,7 @@ export default async function EditarImagenPage({ params }: { params: Promise<{ i
       <form action={action} className="grid gap-5 sm:grid-cols-2">
           <label className="space-y-1">
             <span className="text-sm font-medium text-[var(--text)]">Tipo</span>
-            <select name="tipo" defaultValue={imagen.tipo} className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm">
+            <select name="tipo" defaultValue={imagen.tipo} className="fi fi-select">
               <option value="PLANO">Plano</option>
               <option value="REFERENCIAL">Referencial</option>
               <option value="FOTO">Foto</option>
@@ -40,19 +40,19 @@ export default async function EditarImagenPage({ params }: { params: Promise<{ i
           </label>
           <label className="space-y-1">
             <span className="text-sm font-medium text-[var(--text)]">Orden</span>
-            <input name="orden" type="number" defaultValue={imagen.orden} className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm" />
+            <input name="orden" type="number" defaultValue={imagen.orden} className="fi" />
           </label>
           <label className="space-y-1 sm:col-span-2">
             <span className="text-sm font-medium text-[var(--text)]">Reemplazar archivo</span>
-            <input name="imagen" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm" />
+            <input name="imagen" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="fi-file" />
           </label>
           <label className="space-y-1 sm:col-span-2">
             <span className="text-sm font-medium text-[var(--text)]">Nombre</span>
-            <input name="nombre" defaultValue={imagen.nombre ?? ""} className="h-10 w-full rounded-lg border border-[var(--border-soft)] px-3 text-sm" />
+            <input name="nombre" defaultValue={imagen.nombre ?? ""} className="fi" />
           </label>
           <label className="space-y-1 sm:col-span-2">
             <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
-            <textarea name="descripcion" rows={3} defaultValue={imagen.descripcion ?? ""} className="w-full rounded-lg border border-[var(--border-soft)] px-3 py-2 text-sm" />
+            <textarea name="descripcion" rows={3} defaultValue={imagen.descripcion ?? ""} className="fi-area" />
           </label>
           <label className="flex items-center gap-2 text-sm font-medium text-[var(--text)]">
             <input name="principal" type="checkbox" defaultChecked={imagen.principal} />

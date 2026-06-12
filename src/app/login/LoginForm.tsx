@@ -6,12 +6,12 @@ import { signIn } from "next-auth/react";
 import Icon from "@/components/Icon";
 
 const fieldShellClass =
-  "peer h-[58px] w-full rounded-xl border border-[#DCE5EF] bg-white pl-11 pr-4 pt-5 pb-1.5 text-sm text-[#243447] placeholder-transparent transition hover:border-[#94A3B8] focus:border-[#0A4A82] focus:outline-none focus:ring-4 focus:ring-[#0A4A82]/10";
+  "peer h-[58px] w-full rounded-xl border border-[#DCE5EF] bg-white pl-11 pr-4 pt-7 pb-1.5 text-sm text-[#243447] placeholder-transparent transition hover:border-[#94A3B8] focus:border-[#0A4A82] focus:outline-none focus:ring-4 focus:ring-[#0A4A82]/10";
 
 const floatingLabelClass =
   "pointer-events-none absolute left-11 top-1/2 -translate-y-1/2 text-sm text-[#94A3B8] transition-all duration-150 " +
-  "peer-focus:top-[14px] peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:font-semibold peer-focus:text-[#0A4A82] " +
-  "peer-[&:not(:placeholder-shown)]:top-[14px] peer-[&:not(:placeholder-shown)]:translate-y-0 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:font-semibold peer-[&:not(:placeholder-shown)]:text-[#64748B]";
+  "peer-focus:top-[8px] peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:font-semibold peer-focus:text-[#0A4A82] " +
+  "peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:translate-y-0 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:font-semibold peer-[&:not(:placeholder-shown)]:text-[#64748B]";
 
 export default function LoginForm() {
   const router        = useRouter();

@@ -18,27 +18,27 @@ export default async function EditarTipoPage({ params }: { params: Promise<{ id:
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text)]">Etiqueta <span className="text-red-500">*</span></label>
-            <input name="etiqueta" required defaultValue={tipo.etiqueta} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]" />
+            <input name="etiqueta" required defaultValue={tipo.etiqueta} className="fi" />
           </div>
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium text-[var(--text)]">Descripción</label>
-            <textarea name="descripcion" rows={2} defaultValue={tipo.descripcion ?? ""} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]" />
+            <textarea name="descripcion" rows={2} defaultValue={tipo.descripcion ?? ""} className="fi-area" />
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text)]">Clase CSS color <span className="text-red-500">*</span></label>
-            <input name="color" required defaultValue={tipo.color} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]" />
+            <input name="color" required defaultValue={tipo.color} className="fi" />
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text)]">Color accent (hex)</label>
-            <input name="accent" defaultValue={tipo.accent} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]" />
+            <input name="accent" defaultValue={tipo.accent} className="fi" />
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text)]">Orden</label>
-            <input name="orden" type="number" min="0" defaultValue={tipo.orden} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]" />
+            <input name="orden" type="number" min="0" defaultValue={tipo.orden} className="fi" />
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text)]">Estado</label>
-            <select name="activo" defaultValue={tipo.activo.toString()} className="mt-1 block w-full rounded-lg border border-[var(--border-soft)] bg-white px-3 py-2 text-sm text-[var(--text)] placeholder-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]">
+            <select name="activo" defaultValue={tipo.activo.toString()} className="fi fi-select">
               <option value="true">Activo</option><option value="false">Inactivo</option>
             </select>
           </div>

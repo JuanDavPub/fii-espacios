@@ -9,8 +9,7 @@ export const metadata = {
   title: "Editar usuario | Espacios FII",
 };
 
-const fieldClass =
-  "h-11 w-full rounded-xl border border-[var(--border-soft)] bg-white px-3 text-sm text-[var(--text)] transition placeholder:text-[var(--text-muted)] hover:border-[var(--text-muted)] focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/12";
+const fieldClass = "fi";
 
 export default async function EditarUsuarioPage({
   params,
@@ -81,7 +80,7 @@ export default async function EditarUsuarioPage({
               <Icon name="shield" className="h-3.5 w-3.5 text-[var(--text-muted)]" />
               Rol
             </span>
-            <select name="role" defaultValue={usuario.role} className={fieldClass}>
+            <select name="role" defaultValue={usuario.role} className="fi fi-select">
               <option value="USER">Usuario</option>
               <option value="ADMIN">Administrador</option>
             </select>

@@ -227,10 +227,6 @@ export default function ShellChrome({
 
   const isAdmin = sessionUser?.role === "ADMIN";
   const visibleGroups = NAV_GROUPS.filter((g) => !g.adminOnly || isAdmin);
-  const flatItems = visibleGroups.flatMap((g) =>
-    g.items.filter((item) => !item.adminOnly || isAdmin),
-  );
-
   return (
     <div className="min-h-screen bg-[var(--app-bg)] text-[var(--text)]">
       {/* Skip-to-content: visible solo con teclado (WCAG 2.4.1) */}
@@ -245,12 +241,24 @@ export default function ShellChrome({
       >
         <aside className="flex h-full flex-col">
           {/* Logo header — altura fija */}
-          <div
-            className={`flex h-20 shrink-0 items-center gap-3 border-b border-[var(--divider)] px-4 ${
-              collapsed ? "justify-center" : "justify-between"
-            }`}
-          >
-            {!collapsed && (
+          {collapsed ? (
+            <button
+              type="button"
+              onClick={() => setCollapsed(false)}
+              aria-label="Expandir menú"
+              className="flex h-20 w-full shrink-0 items-center justify-center border-b border-[var(--divider)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[var(--primary)]"
+            >
+              <div className="brand-logo-badge h-10 w-10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/LogoUGcolor.svg?v=5"
+                  alt="Universidad de Guayaquil"
+                  className="brand-logo-img"
+                />
+              </div>
+            </button>
+          ) : (
+            <div className="flex h-20 shrink-0 items-center justify-between gap-3 border-b border-[var(--divider)] px-4">
               <div className="flex min-w-0 items-center gap-3">
                 <div className="brand-logo-badge h-10 w-10 shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -272,29 +280,19 @@ export default function ShellChrome({
                   </p>
                 </div>
               </div>
-            )}
-            {collapsed && (
-              <div className="brand-logo-badge h-10 w-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/LogoUGcolor.svg?v=5"
-                  alt="Universidad de Guayaquil"
-                  className="brand-logo-img"
-                />
-              </div>
-            )}
-            <button
-              type="button"
-              onClick={() => setCollapsed((v) => !v)}
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-white text-[var(--text-secondary)] shadow-sm transition hover:bg-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
-              aria-label={collapsed ? "Expandir menú" : "Colapsar menú"}
-            >
-              <Icon name="menu" className="h-4 w-4" />
-            </button>
-          </div>
+              <button
+                type="button"
+                onClick={() => setCollapsed(true)}
+                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-white text-[var(--text-secondary)] shadow-sm transition hover:bg-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+                aria-label="Colapsar menú"
+              >
+                <Icon name="menu" className="h-4 w-4" />
+              </button>
+            </div>
+          )}
 
-          {/* Navegación con scroll interno */}
-          {!collapsed ? (
+          {/* Navegación — solo visible cuando expandido */}
+          {!collapsed && (
             <nav
               aria-label="Navegación principal"
               className="sidebar-scroll flex-1 overflow-y-auto px-3 py-4"
@@ -309,29 +307,6 @@ export default function ShellChrome({
                   onToggle={() => toggleGroup(group.key)}
                 />
               ))}
-            </nav>
-          ) : (
-            <nav
-              aria-label="Navegación principal"
-              className="sidebar-scroll flex-1 overflow-y-auto px-2 py-4"
-            >
-              {flatItems.map((item) => {
-                const active = isActive(item.href, pathname);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    title={item.label}
-                    className={`mb-1 flex h-10 w-full items-center justify-center rounded-lg no-underline transition ${
-                      active
-                        ? "bg-gradient-to-br from-[#2B6CB0] to-[#3B82F6] text-white shadow-[0_8px_20px_rgba(43,108,176,0.25)]"
-                        : "text-[var(--text-secondary)] hover:bg-[var(--primary-light)] hover:text-[var(--primary)]"
-                    }`}
-                  >
-                    <Icon name={item.icon} className="h-5 w-5" />
-                  </Link>
-                );
-              })}
             </nav>
           )}
         </aside>
