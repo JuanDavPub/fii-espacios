@@ -21,7 +21,7 @@ export default function LoginForm() {
   const [username,     setUsername]     = useState("");
   const [password,     setPassword]     = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [remember,     setRemember]     = useState(true);
+  const [remember,     setRemember]     = useState(false);
   const [error,        setError]        = useState<string | null>(null);
   const [loading,      setLoading]      = useState(false);
 
@@ -33,6 +33,16 @@ export default function LoginForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (!username.trim()) {
+      setError("El usuario es obligatorio.");
+      return;
+    }
+    if (!password) {
+      setError("La contraseña es obligatoria.");
+      return;
+    }
+
     setLoading(true);
 
     const result = await signIn("credentials", {

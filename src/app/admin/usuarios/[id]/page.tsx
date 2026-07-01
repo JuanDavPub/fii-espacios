@@ -25,14 +25,14 @@ export default async function EditarUsuarioPage({
   return (
     <AdminModal
       title="Editar usuario"
-      description={`Actualiza los datos de ${usuario.username}. Deja la contrasena en blanco si no quieres cambiarla.`}
+      description={`Actualiza los datos de ${usuario.username}. Deja la contraseña en blanco si no quieres cambiarla.`}
       backHref="/admin/usuarios"
       backLabel="Usuarios"
     >
       <div className="mb-5">
         <p className="badge-pill bg-[var(--primary-light)] text-[var(--primary)]">
           <Icon name="shield" className="h-3.5 w-3.5" />
-          Administracion
+          Administración
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export default async function EditarUsuarioPage({
           <label className="space-y-2">
             <span className="flex items-center gap-1.5 text-sm font-semibold text-[var(--text)]">
               <Icon name="lock" className="h-3.5 w-3.5 text-[var(--text-muted)]" />
-              Nueva contrasena
+              Nueva contraseña
             </span>
             <input
               name="password"

@@ -15,7 +15,7 @@ export default async function AdminUsosPage() {
     <div className="flex flex-col gap-6">
       <AdminHeader
         title="Usos de espacio"
-        description="Gestiona el catalogo de usos que pueden asociarse a uno o varios espacios."
+        description="Gestiona el catálogo de usos que pueden asociarse a uno o varios espacios."
         actions={
           <Link href="/admin/usos/nuevo" className="btn-primary inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium">
             <Icon name="plus" className="h-4 w-4" />Nuevo uso
@@ -27,8 +27,8 @@ export default async function AdminUsosPage() {
           <table className="w-full min-w-[760px] text-sm">
             <thead className="border-b border-[var(--border-soft)] bg-[var(--secondary)] text-left">
               <tr>
-                {["Nombre", "Descripcion", "Orden", "Estado", "Acciones"].map((h) => (
-                  <th key={h} className="px-4 py-3 font-medium text-[var(--text-secondary)]">{h}</th>
+                {["Nombre", "Descripción", "Orden", "Estado", "Acciones"].map((h) => (
+                  <th key={h} className={`px-4 py-3 font-medium text-[var(--text-secondary)] ${h === "Acciones" ? "sticky right-0 bg-[var(--secondary)] text-right" : ""}`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -36,7 +36,7 @@ export default async function AdminUsosPage() {
               {usos.map((uso) => (
                 <tr key={uso.id} className="hover:bg-[var(--secondary)]">
                   <td className="px-4 py-3 font-medium text-[var(--text)]">{uso.nombre}</td>
-                  <td className="px-4 py-3 text-[var(--text-secondary)]">{uso.descripcion ?? "Sin descripcion"}</td>
+                  <td className="px-4 py-3 text-[var(--text-secondary)]">{uso.descripcion ?? "Sin descripción"}</td>
                   <td className="px-4 py-3 text-[var(--text-muted)]">{uso.orden}</td>
                   <td className="px-4 py-3">
                     <form action={toggleUso.bind(null, uso.id, !uso.activo)}>
@@ -46,7 +46,7 @@ export default async function AdminUsosPage() {
                       </button>
                     </form>
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="sticky right-0 bg-white px-4 py-3">
                     <div className="flex items-center gap-1">
                       <Link href={`/admin/usos/${uso.id}/editar`} className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary-light)]">Editar</Link>
                       <DeleteButton formAction={deleteUso.bind(null, uso.id)} label={uso.nombre} />

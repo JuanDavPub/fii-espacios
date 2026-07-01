@@ -6,7 +6,7 @@ import { fetchEstadosFisicosAdmin } from "@/lib/espacios";
 import { deleteEstado, toggleEstado } from "@/app/admin/catalogos-actions";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Estados fisicos | Espacios FII" };
+export const metadata = { title: "Estados físicos | Espacios FII" };
 
 export default async function AdminEstadosPage() {
   const estados = await fetchEstadosFisicosAdmin();
@@ -14,8 +14,8 @@ export default async function AdminEstadosPage() {
   return (
     <div className="flex flex-col gap-6">
       <AdminHeader
-        title="Estados fisicos"
-        description="Gestiona el catalogo de estados de conservacion para espacios."
+        title="Estados físicos"
+        description="Gestiona el catálogo de estados de conservación para espacios."
         actions={
           <Link href="/admin/estados/nuevo" className="btn-primary inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium">
             <Icon name="plus" className="h-4 w-4" />Nuevo estado
@@ -28,7 +28,7 @@ export default async function AdminEstadosPage() {
             <thead className="border-b border-[var(--border-soft)] bg-[var(--secondary)] text-left">
               <tr>
                 {["Nombre", "Color", "Orden", "Estado", "Acciones"].map((h) => (
-                  <th key={h} className="px-4 py-3 font-medium text-[var(--text-secondary)]">{h}</th>
+                  <th key={h} className={`px-4 py-3 font-medium text-[var(--text-secondary)] ${h === "Acciones" ? "sticky right-0 bg-[var(--secondary)] text-right" : ""}`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -37,7 +37,7 @@ export default async function AdminEstadosPage() {
                 <tr key={estado.id} className="hover:bg-[var(--secondary)]">
                   <td className="px-4 py-3">
                     <p className="font-medium text-[var(--text)]">{estado.nombre}</p>
-                    <p className="text-xs text-[var(--text-muted)]">{estado.descripcion ?? "Sin descripcion"}</p>
+                    <p className="text-xs text-[var(--text-muted)]">{estado.descripcion ?? "Sin descripción"}</p>
                   </td>
                   <td className="px-4 py-3">
                     <span className="inline-flex items-center gap-2 font-mono text-xs text-[var(--text-muted)]">
@@ -54,7 +54,7 @@ export default async function AdminEstadosPage() {
                       </button>
                     </form>
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="sticky right-0 bg-white px-4 py-3">
                     <div className="flex items-center gap-1">
                       <Link href={`/admin/estados/${estado.id}/editar`} className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary-light)]">Editar</Link>
                       <DeleteButton formAction={deleteEstado.bind(null, estado.id)} label={estado.nombre} />

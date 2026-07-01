@@ -27,6 +27,7 @@ export interface Espacio {
   nombre: string;
   tipo: TipoEspacio;
   bloqueId: string;
+  bloqueNombre: string;
   planta: string;
   descripcion: string;
   capacidad?: number;

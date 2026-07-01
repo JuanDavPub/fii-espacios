@@ -25,11 +25,11 @@ export default async function AdminEspaciosPage() {
           <div>
             <p className="badge-pill bg-[var(--primary-light)] text-[var(--primary)]">
               <Icon name="shield" className="h-3.5 w-3.5" />
-              Administracion
+              Administración
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text)]">Administrar espacios</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">
-              Gestiona todos los espacios de la facultad: crea, edita, activa/desactiva y elimina. Filtra por bloque o tipo para encontrar rapidamente lo que buscas.
+              Gestiona todos los espacios de la facultad: crea, edita, activa/desactiva y elimina. Filtra por bloque o tipo para encontrar rápidamente lo que buscas.
             </p>
           </div>
           <div className="grid grid-cols-3 gap-3">

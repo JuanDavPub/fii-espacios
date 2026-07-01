@@ -37,12 +37,12 @@ export default async function ImagenesEntidadPage({
       : entidad === "PLANTA"
         ? `/admin/plantas/${entidadId}/imagenes`
         : `/admin/espacios/${entidadId}/imagenes`;
-  const nuevaImagenHref = `/admin/imagenes/nueva?entidad=${entidad}&entidadId=${entidadId}&backHref=${encodeURIComponent(entidadImagenHref)}&backLabel=${encodeURIComponent("Imagenes")}`;
+  const nuevaImagenHref = `/admin/imagenes/nueva?entidad=${entidad}&entidadId=${entidadId}&backHref=${encodeURIComponent(entidadImagenHref)}&backLabel=${encodeURIComponent("Imágenes")}`;
 
   return (
     <div className="flex flex-col gap-6">
       <AdminHeader
-        title={`Imagenes: ${title}`}
+        title={`Imágenes: ${title}`}
         description="Carga planos, fotos o referencias visuales en Base64 para este registro."
         backHref={backHref}
         backLabel={backLabel}
@@ -55,7 +55,7 @@ export default async function ImagenesEntidadPage({
       </div>
       <section className="surface-card overflow-hidden">
         <div className="border-b border-[var(--border-soft)] px-5 py-4">
-          <h2 className="text-base font-semibold text-[var(--text)]">Imagenes registradas</h2>
+          <h2 className="text-base font-semibold text-[var(--text)]">Imágenes registradas</h2>
         </div>
         <div className="grid gap-4 p-5 md:grid-cols-2 xl:grid-cols-3">
           {imagenes.map((imagen) => (
@@ -68,7 +68,7 @@ export default async function ImagenesEntidadPage({
                   <p className="text-sm font-semibold text-[var(--text)]">{imagen.nombre ?? imagen.tipo}</p>
                   <p className="text-xs text-[var(--text-muted)]">{imagen.tipo} · {imagen.mimeType}</p>
                 </div>
-                <p className="text-sm text-[var(--text-secondary)]">{imagen.descripcion ?? "Sin descripcion"}</p>
+                <p className="text-sm text-[var(--text-secondary)]">{imagen.descripcion ?? "Sin descripción"}</p>
                 <div className="flex flex-wrap items-center gap-2">
                   {imagen.principal ? (
                     <span className="badge-pill bg-green-100 text-green-700">Principal</span>
@@ -84,7 +84,7 @@ export default async function ImagenesEntidadPage({
             </article>
           ))}
           {imagenes.length === 0 && (
-            <p className="text-sm text-[var(--text-muted)]">Aun no hay imagenes para este registro.</p>
+            <p className="text-sm text-[var(--text-muted)]">Aún no hay imágenes para este registro.</p>
           )}
         </div>
       </section>

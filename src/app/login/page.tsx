@@ -3,7 +3,7 @@ import Icon from "@/components/Icon";
 import LoginForm from "./LoginForm";
 
 export const metadata = {
-  title: "Iniciar sesion | Espacios FII",
+  title: "Iniciar sesión | Espacios FII",
 };
 
 export default function LoginPage() {
@@ -35,7 +35,7 @@ export default function LoginPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
                 Universidad de Guayaquil
               </p>
-              <p className="text-sm font-medium text-white/90">Facultad de Ingenieria Industrial</p>
+              <p className="text-sm font-medium text-white/90">Facultad de Ingeniería Industrial</p>
             </div>
           </div>
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
 
           <div className="max-w-sm">
             <h1 className="text-2xl font-semibold leading-snug tracking-tight text-white">
-              Sistema Inteligente de Gestion de Espacios
+              Sistema Inteligente de Gestión de Espacios
             </h1>
             <p className="mt-4 text-sm leading-7 text-white/70">
               Administre aulas, laboratorios, talleres, oficinas y espacios
@@ -67,7 +67,7 @@ export default function LoginPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#64748B]">
                 Universidad de Guayaquil
               </p>
-              <p className="text-sm font-semibold text-[#243447]">Espacios FII - Facultad de Ingenieria Industrial</p>
+              <p className="text-sm font-semibold text-[#243447]">Espacios FII - Facultad de Ingeniería Industrial</p>
             </div>
           </div>
 
@@ -76,11 +76,11 @@ export default function LoginPage() {
               Acceso institucional
             </p>
             <h2 className="mt-2 text-[26px] font-semibold tracking-tight text-[#243447]">
-              Inicia sesion en tu cuenta
+              Inicia sesión en tu cuenta
             </h2>
             <p className="mt-2 text-sm leading-6 text-[#64748B]">
               Ingresa tus credenciales institucionales para consultar bloques, aulas,
-              laboratorios y demas espacios de la facultad.
+              laboratorios y demás espacios de la facultad.
             </p>
 
             <div className="mt-8">
@@ -92,7 +92,7 @@ export default function LoginPage() {
 
           <p className="mt-6 flex items-center justify-center gap-2 text-center text-xs leading-5 text-[#94A3B8]">
             <Icon name="shield" className="h-4 w-4 shrink-0 text-[#0A4A82]" />
-            Acceso seguro y cifrado para la comunidad de la Facultad de Ingenieria Industrial.
+            Acceso seguro y cifrado para la comunidad de la Facultad de Ingeniería Industrial.
           </p>
         </div>
       </div>

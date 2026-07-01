@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import type { Equipamiento, EstadoFisico, Tipo, UsoEspacio } from "@/generated/prisma/client";
 
 type BloqueOption = {
@@ -54,10 +57,18 @@ export default function EspacioForm({
     espacio?.equipamiento?.map((item) => [item.equipamientoId, item]) ?? [],
   );
 
+  const [bloqueId, setBloqueId] = useState(espacio?.bloqueId ?? "");
+  const [plantaId, setPlantaId] = useState(espacio?.plantaId ?? "");
+  const plantasDisponibles = useMemo(
+    () => bloques.find((b) => b.id === bloqueId)?.plantas ?? [],
+    [bloques, bloqueId],
+  );
+  const bloqueSinPlantas = bloqueId !== "" && plantasDisponibles.length === 0;
+
   return (
     <form action={action} className="grid gap-5 sm:grid-cols-2">
       <label className="space-y-1">
-        <span className="text-sm font-medium text-[var(--text)]">Codigo *</span>
+        <span className="text-sm font-medium text-[var(--text)]">Código *</span>
         <input name="codigo" required defaultValue={espacio?.codigo ?? ""} className={inputClass} />
       </label>
       <label className="space-y-1">
@@ -78,7 +89,7 @@ export default function EspacioForm({
         </select>
       </label>
       <label className="space-y-1">
-        <span className="text-sm font-medium text-[var(--text)]">Estado fisico</span>
+        <span className="text-sm font-medium text-[var(--text)]">Estado físico</span>
         <select name="estadoFisicoId" defaultValue={espacio?.estadoFisicoId ?? ""} className={selectClass}>
           <option value="">Sin estado</option>
           {estados.map((estado) => <option key={estado.id} value={estado.id}>{estado.nombre}</option>)}
@@ -86,21 +97,37 @@ export default function EspacioForm({
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Bloque *</span>
-        <select name="bloqueId" required defaultValue={espacio?.bloqueId ?? ""} className={selectClass}>
+        <select
+          name="bloqueId"
+          required
+          value={bloqueId}
+          onChange={(e) => {
+            setBloqueId(e.target.value);
+            setPlantaId(bloques.find((b) => b.id === e.target.value)?.plantas[0]?.id ?? "");
+          }}
+          className={selectClass}
+        >
           <option value="">Selecciona un bloque</option>
           {bloques.map((bloque) => <option key={bloque.id} value={bloque.id}>{bloque.nombre}</option>)}
         </select>
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Planta *</span>
-        <select name="plantaId" required defaultValue={espacio?.plantaId ?? ""} className={selectClass}>
-          <option value="">Selecciona una planta</option>
-          {bloques.map((bloque) => (
-            <optgroup key={bloque.id} label={bloque.nombre}>
-              {bloque.plantas.map((planta) => <option key={planta.id} value={planta.id}>{planta.nombre}</option>)}
-            </optgroup>
-          ))}
+        <select
+          name="plantaId"
+          required
+          value={plantaId}
+          onChange={(e) => setPlantaId(e.target.value)}
+          className={selectClass}
+        >
+          <option value="">Selecciona bloque primero</option>
+          {plantasDisponibles.map((planta) => <option key={planta.id} value={planta.id}>{planta.nombre}</option>)}
         </select>
+        {bloqueSinPlantas && (
+          <p className="text-xs font-medium text-[var(--danger)]">
+            Este bloque no tiene plantas registradas. Primero debe crear una planta para este bloque.
+          </p>
+        )}
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Capacidad</span>
@@ -111,13 +138,13 @@ export default function EspacioForm({
         <input name="cantidadPuestos" type="number" defaultValue={espacio?.cantidadPuestos ?? ""} className={inputClass} />
       </label>
       <label className="space-y-1">
-        <span className="text-sm font-medium text-[var(--text)]">Area m2</span>
+        <span className="text-sm font-medium text-[var(--text)]">Área m2</span>
         <input name="areaM2" type="number" step="0.01" defaultValue={espacio?.areaM2 ?? ""} className={inputClass} />
       </label>
       <label className="space-y-1">
         <span className="text-sm font-medium text-[var(--text)]">Acceso</span>
         <select name="accesoPublico" defaultValue={(espacio?.accesoPublico ?? true).toString()} className={selectClass}>
-          <option value="true">Publico</option>
+          <option value="true">Público</option>
           <option value="false">Restringido</option>
         </select>
       </label>
@@ -136,11 +163,11 @@ export default function EspacioForm({
         </label>
       </div>
       <label className="space-y-1 sm:col-span-2">
-        <span className="text-sm font-medium text-[var(--text)]">Ubicacion de referencia</span>
+        <span className="text-sm font-medium text-[var(--text)]">Ubicación de referencia</span>
         <input name="ubicacionReferencia" defaultValue={espacio?.ubicacionReferencia ?? ""} className={inputClass} />
       </label>
       <label className="space-y-1 sm:col-span-2">
-        <span className="text-sm font-medium text-[var(--text)]">Descripcion *</span>
+        <span className="text-sm font-medium text-[var(--text)]">Descripción *</span>
         <textarea name="descripcion" required rows={3} defaultValue={espacio?.descripcion ?? ""} className={areaClass} />
       </label>
       <label className="space-y-1 sm:col-span-2">
@@ -170,14 +197,16 @@ export default function EspacioForm({
                   {item.nombre}
                 </label>
                 <input name={`equipamientoCantidad:${item.id}`} type="number" min="1" defaultValue={selected?.cantidad ?? 1} className={inputClass} />
-                <input name={`equipamientoEstado:${item.id}`} defaultValue={selected?.estado ?? ""} placeholder="Estado/observacion breve" className={inputClass} />
+                <input name={`equipamientoEstado:${item.id}`} defaultValue={selected?.estado ?? ""} placeholder="Estado/observación breve" className={inputClass} />
               </div>
             );
           })}
         </div>
       </fieldset>
       <div className="sm:col-span-2 flex justify-end gap-3">
-        <button type="submit" className="btn-primary rounded-lg px-4 py-2 text-sm font-medium">Guardar espacio</button>
+        <button type="submit" disabled={bloqueSinPlantas} className="btn-primary rounded-lg px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-60">
+          Guardar espacio
+        </button>
       </div>
     </form>
   );

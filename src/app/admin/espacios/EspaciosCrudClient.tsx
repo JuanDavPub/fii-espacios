@@ -52,6 +52,7 @@ export default function EspaciosCrudClient({
     () => bloques.find((b) => b.id === formBloqueId)?.plantas ?? [],
     [bloques, formBloqueId],
   );
+  const bloqueSinPlantas = formBloqueId !== "" && plantasDisponibles.length === 0;
 
   const resultados = useMemo(() => {
     const texto = busqueda.trim().toLowerCase();
@@ -166,7 +167,7 @@ export default function EspaciosCrudClient({
                 <th className="px-4 py-3 font-semibold">Planta</th>
                 <th className="px-4 py-3 font-semibold">Cap.</th>
                 <th className="px-4 py-3 font-semibold">Estado</th>
-                <th className="px-4 py-3 text-right font-semibold">Acciones</th>
+                <th className="sticky right-0 bg-[var(--secondary)] px-4 py-3 text-right font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -191,7 +192,7 @@ export default function EspaciosCrudClient({
                         {e.activo ? "Activo" : "Inactivo"}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="sticky right-0 bg-white px-4 py-3">
                       <div className="flex justify-end gap-1.5">
                         <button type="button" onClick={() => openEdit(e)}
                           className="inline-flex h-8 items-center gap-1 rounded-lg border border-[var(--border-soft)] px-2.5 text-xs font-semibold text-[var(--primary)] hover:bg-[var(--primary-light)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
@@ -235,6 +236,7 @@ export default function EspaciosCrudClient({
         iconName={selected ? "edit" : "plus"}
         size="md"
         pending={pending}
+        submitDisabled={bloqueSinPlantas}
         formAction={handleSubmit}
       >
         <div className="grid gap-4 sm:grid-cols-2">
@@ -291,6 +293,11 @@ export default function EspaciosCrudClient({
                 <option key={p.id} value={p.id}>{p.nombre}</option>
               ))}
             </select>
+            {bloqueSinPlantas && (
+              <p className="text-xs font-medium text-[var(--danger)]">
+                Este bloque no tiene plantas registradas. Primero debe crear una planta para este bloque.
+              </p>
+            )}
           </label>
           {/* Descripción */}
           <label className="space-y-1.5 sm:col-span-2">

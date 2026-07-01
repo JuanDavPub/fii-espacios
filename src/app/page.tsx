@@ -36,8 +36,8 @@ export default async function Home() {
               Encuentra cualquier espacio de la facultad
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-white/85 sm:text-base">
-              Esta guia reune la informacion de los bloques A, B, C, D, E, F y G de la
-              Facultad de Ingenieria Industrial: aulas, laboratorios, talleres, oficinas,
+              Esta guía reúne la información de los bloques A, B, C, D, E, F y G de la
+              Facultad de Ingeniería Industrial: aulas, laboratorios, talleres, oficinas,
               auditorios y servicios.
             </p>
           </div>
@@ -130,7 +130,7 @@ export default async function Home() {
       </section>
 
       <section className="surface-card p-6">
-        <h2 className="text-lg font-semibold text-[var(--text)]">Organizacion de referencia</h2>
+        <h2 className="text-lg font-semibold text-[var(--text)]">Organización de referencia</h2>
         <div className="mt-4 grid gap-3 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-2">
           <p className="rounded-xl bg-[var(--secondary)] p-4">
             <strong className="text-[var(--text)]">Bloques A, B y C</strong>: conjunto principal con planta baja, primera planta y segunda planta.

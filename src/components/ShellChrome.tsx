@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "./Icon";
 
 type ShellUser = {
@@ -205,6 +205,22 @@ export default function ShellChrome({
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [accessDeniedToast, setAccessDeniedToast] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("accessDenied") !== "1") return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- lee window.location, solo disponible tras montar en cliente
+    setAccessDeniedToast(true);
+    params.delete("accessDenied");
+    const query = params.toString();
+    window.history.replaceState(null, "", query ? `${pathname}?${query}` : pathname);
+
+    const timer = window.setTimeout(() => setAccessDeniedToast(false), 6000);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const result: Record<string, boolean> = {};
@@ -233,6 +249,25 @@ export default function ShellChrome({
       <a href="#main-content" className="skip-link">
         Saltar al contenido principal
       </a>
+
+      {accessDeniedToast && (
+        <div
+          role="alert"
+          className="fixed left-1/2 top-4 z-[9999] flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-start gap-3 rounded-xl border border-[var(--danger)]/25 bg-white px-4 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.2)]"
+        >
+          <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0 text-[var(--danger)]" aria-hidden="true" />
+          <p className="text-sm text-[var(--text)]">No tienes permisos para acceder a esa sección.</p>
+          <button
+            type="button"
+            onClick={() => setAccessDeniedToast(false)}
+            aria-label="Cerrar aviso"
+            className="ml-auto shrink-0 text-[var(--text-muted)] hover:text-[var(--text)]"
+          >
+            <Icon name="close" className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+
       {/* ── Sidebar desktop ──────────────────────────────────────────────── */}
       <div
         className={`fixed inset-y-0 left-0 z-40 hidden border-r border-[var(--border-soft)] bg-white shadow-[0_18px_60px_rgba(43,108,176,0.06)] transition-all duration-300 lg:flex lg:flex-col ${
@@ -400,14 +435,20 @@ export default function ShellChrome({
             </div>
 
             <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                className="relative hidden h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-soft)] text-[var(--text-secondary)] transition hover:bg-[var(--secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 sm:inline-flex"
-                aria-label="Notificaciones"
-              >
-                <Icon name="bell" className="h-5 w-5" />
-                <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--danger)] ring-2 ring-white" />
-              </button>
+              <details className="relative hidden sm:block">
+                <summary
+                  className="flex h-10 w-10 list-none items-center justify-center rounded-lg border border-[var(--border-soft)] text-[var(--text-secondary)] transition hover:bg-[var(--secondary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden"
+                  aria-label="Notificaciones"
+                >
+                  <Icon name="bell" className="h-5 w-5" />
+                </summary>
+                <div
+                  role="status"
+                  className="absolute right-0 top-12 z-30 w-64 rounded-xl border border-[var(--border-soft)] bg-white p-4 text-sm text-[var(--text-secondary)] shadow-[0_18px_48px_rgba(15,23,42,0.16)]"
+                >
+                  No hay notificaciones disponibles.
+                </div>
+              </details>
               {sessionUser && (
                 <div className="flex items-center gap-2 rounded-xl border border-[var(--border-soft)] bg-white px-2.5 py-2 shadow-sm">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#2B6CB0] to-[#3B82F6] text-white">

@@ -27,7 +27,7 @@ export default async function BloquesPage() {
           <div>
             <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Bloques de la facultad</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">
-              La Facultad de Ingenieria Industrial esta conformada por siete bloques. Selecciona uno para ver su distribucion por planta y los espacios que contiene.
+              La Facultad de Ingeniería Industrial está conformada por siete bloques. Selecciona uno para ver su distribución por planta y los espacios que contiene.
             </p>
           </div>
           <Link
@@ -48,7 +48,7 @@ export default async function BloquesPage() {
                 <Icon name="shield" className="h-3.5 w-3.5" />
                 Acciones de administrador
               </p>
-              <h2 className="mt-2 text-lg font-semibold text-[var(--text)]">Gestion de bloques y espacios</h2>
+              <h2 className="mt-2 text-lg font-semibold text-[var(--text)]">Gestión de bloques y espacios</h2>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">
                 Los datos ahora se gestionan desde la base de datos. Accede al panel admin para crear, editar o desactivar bloques y espacios.
               </p>

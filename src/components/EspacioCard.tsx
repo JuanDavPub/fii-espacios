@@ -40,7 +40,11 @@ export default function EspacioCard({ espacio }: { espacio: Espacio }) {
         {espacio.descripcion}
       </p>
 
-      <div className="mt-4 grid gap-2 px-4 text-xs sm:grid-cols-2">
+      <div className="mt-4 grid gap-2 px-4 text-xs sm:grid-cols-3">
+        <span className="rounded-xl bg-[var(--secondary)] px-3 py-2 text-[var(--text-secondary)]">
+          <span className="block font-medium text-[var(--text-muted)]">Bloque</span>
+          <span className="font-semibold text-[var(--text)]">{espacio.bloqueNombre}</span>
+        </span>
         <span className="rounded-xl bg-[var(--secondary)] px-3 py-2 text-[var(--text-secondary)]">
           <span className="block font-medium text-[var(--text-muted)]">Planta</span>
           <span className="font-semibold text-[var(--text)]">{espacio.planta}</span>

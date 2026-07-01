@@ -6,6 +6,7 @@ import { fetchBloque, fetchEspacio, fetchEspacioDetalle, fetchEspaciosDeBloque }
 import { TIPOS_INFO } from "@/data/tipos";
 import EspacioCard from "@/components/EspacioCard";
 import ImageCarousel from "@/components/ImageCarousel";
+import ImagenConFallback from "@/components/ImagenConFallback";
 
 export const dynamic = "force-dynamic";
 
@@ -78,7 +79,7 @@ export default async function EspacioDetailPage({
               <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{detalle.nombre}</h1>
               <span className={`badge-pill ${tipoInfo.color}`}>{tipoInfo.etiqueta}</span>
               <span className={`badge-pill ${detalle.accesoPublico ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
-                {detalle.accesoPublico ? "Publico" : "Restringido"}
+                {detalle.accesoPublico ? "Público" : "Restringido"}
               </span>
             </div>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">{detalle.descripcion}</p>
@@ -96,7 +97,7 @@ export default async function EspacioDetailPage({
         <section className="surface-card overflow-hidden">
           <div className="border-b border-[var(--divider)] px-5 py-4 sm:px-6">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
-              Ubicacion visual
+              Ubicación visual
             </p>
             <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Plano de referencia</h2>
           </div>
@@ -107,20 +108,23 @@ export default async function EspacioDetailPage({
                   <ImageCarousel
                     imagenPrincipal={imagenPrincipal}
                     imagenesSecundarias={imagenesSecundarias}
-                    alt={`Imagenes de ${detalle.nombre}`}
+                    alt={`Imágenes de ${detalle.nombre}`}
                   />
                 ) : (
                   <>
                     <div className="aspect-[16/9] w-full">
-                      <img
+                      <ImagenConFallback
                         src={imagenFallback}
                         alt={`Plano de ${bloque.nombre} - ${detalle.planta.nombre}`}
                         className="h-full w-full object-contain p-3"
+                        placeholder="Plano no disponible"
                       />
                     </div>
-                    <p className="border-t border-[var(--border-soft)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
-                      Ubicacion de referencia dentro del {bloque.nombre} - {detalle.planta.nombre}.
-                    </p>
+                    {imagenFallback && (
+                      <p className="border-t border-[var(--border-soft)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                        Ubicación de referencia dentro del {bloque.nombre} - {detalle.planta.nombre}.
+                      </p>
+                    )}
                   </>
                 )}
               </div>
@@ -130,7 +134,7 @@ export default async function EspacioDetailPage({
 
         <aside className="surface-card overflow-hidden xl:h-fit">
           <div className="border-b border-[var(--divider)] px-5 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Informacion</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Información</p>
             <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Datos del espacio</h2>
           </div>
           <dl className="grid gap-3 p-5">
@@ -160,14 +164,14 @@ export default async function EspacioDetailPage({
 
       <section className="surface-card overflow-hidden">
         <div className="border-b border-[var(--divider)] px-5 py-4 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Caracteristicas</p>
-          <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Datos fisicos y funcionales</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Características</p>
+          <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Datos físicos y funcionales</h2>
         </div>
         <div className="grid gap-3 p-5 sm:grid-cols-2 lg:grid-cols-4">
           <InfoTile icon="users" label="Puestos" value={detalle.cantidadPuestos ?? "No definido"} />
-          <InfoTile icon="archive" label="Area" value={detalle.areaM2 ? `${detalle.areaM2} m2` : "No definida"} />
+          <InfoTile icon="archive" label="Área" value={detalle.areaM2 ? `${detalle.areaM2} m2` : "No definida"} />
           <InfoTile icon="layers" label="Medidas" value={[detalle.largoCm, detalle.anchoCm, detalle.altoCm].some(Boolean) ? `${detalle.largoCm ?? "-"} x ${detalle.anchoCm ?? "-"} x ${detalle.altoCm ?? "-"} cm` : "No definidas"} />
-          <InfoTile icon="zap" label="Estado fisico" value={detalle.estadoFisico?.nombre ?? "No definido"} />
+          <InfoTile icon="zap" label="Estado físico" value={detalle.estadoFisico?.nombre ?? "No definido"} />
         </div>
         {(detalle.usos.length > 0 || detalle.equipamiento.length > 0 || detalle.comentarios.length > 0) && (
           <div className="grid gap-5 border-t border-[var(--divider)] p-5 lg:grid-cols-3">
@@ -190,11 +194,11 @@ export default async function EspacioDetailPage({
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-[var(--text)]">Comentarios publicos</h3>
+              <h3 className="text-sm font-semibold text-[var(--text)]">Comentarios públicos</h3>
               <div className="mt-3 grid gap-2">
                 {detalle.comentarios.length > 0 ? detalle.comentarios.map((comentario) => (
                   <p key={comentario.id} className="rounded-lg bg-[var(--secondary)] px-3 py-2 text-sm text-[var(--text-secondary)]">{comentario.comentario}</p>
-                )) : <p className="text-sm text-[var(--text-muted)]">Sin comentarios publicos.</p>}
+                )) : <p className="text-sm text-[var(--text-muted)]">Sin comentarios públicos.</p>}
               </div>
             </div>
           </div>

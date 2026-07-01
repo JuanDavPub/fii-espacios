@@ -24,7 +24,7 @@ export default async function AdminEspacioDetallePage({ params }: { params: Prom
     <div className="flex flex-col gap-6">
       <AdminHeader
         title={espacio.nombre}
-        description="Detalle administrativo completo del espacio fisico."
+        description="Detalle administrativo completo del espacio físico."
         backHref="/admin/espacios"
         backLabel="Espacios"
         actions={
@@ -35,22 +35,22 @@ export default async function AdminEspacioDetallePage({ params }: { params: Prom
       />
       <section className="surface-card p-6">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <Value label="Codigo" value={espacio.codigo} />
+          <Value label="Código" value={espacio.codigo} />
           <Value label="Bloque" value={espacio.bloque.nombre} />
           <Value label="Planta" value={espacio.planta.nombre} />
           <Value label="Tipo" value={espacio.tipo.etiqueta} />
-          <Value label="Estado fisico" value={espacio.estadoFisico?.nombre} />
-          <Value label="Acceso" value={espacio.accesoPublico ? "Publico" : "Restringido"} />
+          <Value label="Estado físico" value={espacio.estadoFisico?.nombre} />
+          <Value label="Acceso" value={espacio.accesoPublico ? "Público" : "Restringido"} />
           <Value label="Capacidad" value={espacio.capacidad ? `${espacio.capacidad} personas` : null} />
           <Value label="Puestos" value={espacio.cantidadPuestos} />
-          <Value label="Area" value={espacio.areaM2 ? `${espacio.areaM2} m2` : null} />
+          <Value label="Área" value={espacio.areaM2 ? `${espacio.areaM2} m2` : null} />
           <Value label="Medidas" value={[espacio.largoCm, espacio.anchoCm, espacio.altoCm].some(Boolean) ? `${espacio.largoCm ?? "-"} x ${espacio.anchoCm ?? "-"} x ${espacio.altoCm ?? "-"} cm` : null} />
-          <Value label="Activo" value={espacio.activo ? "Si" : "No"} />
-          <Value label="URL publica" value={<Link className="text-[var(--primary)] hover:underline" href={`/espacios/${espacio.slug}`}>/espacios/{espacio.slug}</Link>} />
+          <Value label="Activo" value={espacio.activo ? "Sí" : "No"} />
+          <Value label="URL pública" value={<Link className="text-[var(--primary)] hover:underline" href={`/espacios/${espacio.slug}`}>/espacios/{espacio.slug}</Link>} />
         </div>
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div>
-            <h2 className="text-base font-semibold text-[var(--text)]">Descripcion</h2>
+            <h2 className="text-base font-semibold text-[var(--text)]">Descripción</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{espacio.descripcion}</p>
           </div>
           <div>

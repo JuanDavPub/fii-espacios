@@ -21,7 +21,7 @@ export default async function EditarImagenPage({ params }: { params: Promise<{ i
       : actualizarEspacioImagen.bind(null, imagen.id);
 
   return (
-    <AdminModal title={`Editar imagen: ${imagen.nombre ?? imagen.tipo}`} backHref="/admin/imagenes" backLabel="Imagenes" size="xl">
+    <AdminModal title={`Editar imagen: ${imagen.nombre ?? imagen.tipo}`} backHref="/admin/imagenes" backLabel="Imágenes" size="xl">
       <div className="mb-5 overflow-hidden rounded-lg border border-[var(--border-soft)] bg-[var(--secondary)]">
         <div className="aspect-[16/9]">
           <img src={imagenBase64Src(imagen) ?? ""} alt={imagen.nombre ?? "Imagen"} className="h-full w-full object-contain p-3" />
@@ -51,7 +51,7 @@ export default async function EditarImagenPage({ params }: { params: Promise<{ i
             <input name="nombre" defaultValue={imagen.nombre ?? ""} className="fi" />
           </label>
           <label className="space-y-1 sm:col-span-2">
-            <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
+            <span className="text-sm font-medium text-[var(--text)]">Descripción</span>
             <textarea name="descripcion" rows={3} defaultValue={imagen.descripcion ?? ""} className="fi-area" />
           </label>
           <label className="flex items-center gap-2 text-sm font-medium text-[var(--text)]">

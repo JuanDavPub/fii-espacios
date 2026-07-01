@@ -7,10 +7,20 @@ export function imagenBase64Src(imagen: { mimeType: string; base64: string } | n
   return `data:${imagen.mimeType};base64,${imagen.base64}`;
 }
 
+// ponytail: bloqueo defensivo de imágenes mal cargadas (p.ej. logo de otra universidad);
+// la corrección real es eliminar/reemplazar la imagen desde /admin/*/imagenes.
+const PALABRAS_PROHIBIDAS = ["ueess", "espíritu santo", "espiritu santo"];
+const filtroImagenValida = {
+  NOT: PALABRAS_PROHIBIDAS.flatMap((palabra) => [
+    { nombre: { contains: palabra, mode: "insensitive" as const } },
+    { descripcion: { contains: palabra, mode: "insensitive" as const } },
+  ]),
+};
+
 type EspacioConRelaciones = {
   slug: string; codigo: string; nombre: string; descripcion: string;
   capacidad: number | null; tipoId: string;
-  bloque: { slug: string }; planta: { nombre: string };
+  bloque: { slug: string; nombre: string }; planta: { nombre: string };
 };
 
 type BloqueConRelaciones = {
@@ -19,7 +29,12 @@ type BloqueConRelaciones = {
 };
 
 function mapEspacio(e: EspacioConRelaciones): Espacio {
-  return { id: e.slug, codigo: e.codigo, nombre: e.nombre, tipo: e.tipoId as TipoEspacio, bloqueId: e.bloque.slug, planta: e.planta.nombre, descripcion: e.descripcion, capacidad: e.capacidad ?? undefined };
+  return { id: e.slug, codigo: e.codigo, nombre: e.nombre, tipo: e.tipoId as TipoEspacio, bloqueId: e.bloque.slug, bloqueNombre: e.bloque.nombre, planta: e.planta.nombre, descripcion: e.descripcion, capacidad: e.capacidad ?? undefined };
+}
+
+function esUrlSospechosa(url: string) {
+  const texto = url.toLowerCase();
+  return PALABRAS_PROHIBIDAS.some((palabra) => texto.includes(palabra));
 }
 
 function mapBloque(
@@ -30,7 +45,7 @@ function mapBloque(
   const plantas: PlantaBloque[] = plantasOrdenadas.map((p) => ({
     id: p.id,
     nombre: p.nombre,
-    imagen: imagenBase64Src(imagenesPorPlanta.get(p.id)) ?? p.imagenUrl,
+    imagen: imagenBase64Src(imagenesPorPlanta.get(p.id)) ?? (esUrlSospechosa(p.imagenUrl) ? "" : p.imagenUrl),
   }));
   return { id: b.slug, nombre: b.nombre, resumen: b.resumen, descripcion: b.descripcion, plantas, imagen: plantas[0]?.imagen ?? "" };
 }
@@ -38,7 +53,7 @@ function mapBloque(
 async function fetchPlantaImagenesPrincipales(plantaIds: string[], tipo = "PLANO") {
   if (plantaIds.length === 0) return new Map<string, { mimeType: string; base64: string }>();
   const imagenes = await prisma.plantaImagen.findMany({
-    where: { plantaId: { in: plantaIds }, tipo: tipo as never, activo: true },
+    where: { plantaId: { in: plantaIds }, tipo: tipo as never, activo: true, ...filtroImagenValida },
     orderBy: [{ principal: "desc" }, { orden: "asc" }, { createdAt: "asc" }],
   });
   const map = new Map<string, { mimeType: string; base64: string }>();
@@ -67,7 +82,7 @@ export async function fetchBloqueDetalleImagenes(slug: string) {
     where: { slug },
     include: {
       imagenes: {
-        where: { activo: true },
+        where: { activo: true, ...filtroImagenValida },
         orderBy: [{ principal: "desc" }, { orden: "asc" }, { createdAt: "asc" }],
       },
       plantas: {
@@ -75,7 +90,7 @@ export async function fetchBloqueDetalleImagenes(slug: string) {
         orderBy: { nivel: "asc" },
         include: {
           imagenes: {
-            where: { activo: true },
+            where: { activo: true, ...filtroImagenValida },
             orderBy: [{ principal: "desc" }, { orden: "asc" }, { createdAt: "asc" }],
           },
         },
@@ -85,18 +100,18 @@ export async function fetchBloqueDetalleImagenes(slug: string) {
 }
 
 export async function fetchEspacios(): Promise<Espacio[]> {
-  const espacios = await prisma.espacio.findMany({ where: { activo: true }, orderBy: { codigo: "asc" }, include: { bloque: true, planta: true } });
+  const espacios = await prisma.espacio.findMany({ where: { activo: true, bloque: { activo: true } }, orderBy: { codigo: "asc" }, include: { bloque: true, planta: true } });
   return espacios.map(mapEspacio);
 }
 
 export async function fetchEspaciosDeBloque(bloqueSlug: string): Promise<Espacio[]> {
-  const espacios = await prisma.espacio.findMany({ where: { activo: true, bloque: { slug: bloqueSlug } }, orderBy: { codigo: "asc" }, include: { bloque: true, planta: true } });
+  const espacios = await prisma.espacio.findMany({ where: { activo: true, bloque: { slug: bloqueSlug, activo: true } }, orderBy: { codigo: "asc" }, include: { bloque: true, planta: true } });
   return espacios.map(mapEspacio);
 }
 
 export async function fetchEspacio(slug: string): Promise<Espacio | null> {
   const espacio = await prisma.espacio.findUnique({ where: { slug }, include: { bloque: true, planta: true } });
-  if (!espacio || !espacio.activo) return null;
+  if (!espacio || !espacio.activo || !espacio.bloque.activo) return null;
   return mapEspacio(espacio);
 }
 
@@ -109,7 +124,7 @@ export async function fetchEspacioDetalle(slug: string) {
       planta: {
         include: {
           imagenes: {
-            where: { activo: true },
+            where: { activo: true, ...filtroImagenValida },
             orderBy: [{ principal: "desc" }, { orden: "asc" }, { createdAt: "asc" }],
           },
         },
@@ -119,7 +134,7 @@ export async function fetchEspacioDetalle(slug: string) {
       equipamiento: { include: { equipamiento: true } },
       comentarios: { where: { visiblePublicamente: true }, orderBy: { createdAt: "desc" } },
       imagenes: {
-        where: { activo: true },
+        where: { activo: true, ...filtroImagenValida },
         orderBy: [{ principal: "desc" }, { orden: "asc" }, { createdAt: "asc" }],
       },
     },

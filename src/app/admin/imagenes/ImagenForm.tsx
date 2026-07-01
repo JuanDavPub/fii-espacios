@@ -105,7 +105,7 @@ export default function ImagenForm({
           }}
           className="fi-file"
         />
-        <p className="text-xs text-[var(--text-muted)]">PNG, JPG, WEBP o SVG. Maximo 2 MB.</p>
+        <p className="text-xs text-[var(--text-muted)]">PNG, JPG, WEBP o SVG. Máximo 2 MB.</p>
       </label>
 
       {preview && (
@@ -122,7 +122,7 @@ export default function ImagenForm({
       </label>
 
       <label className="space-y-1 sm:col-span-2">
-        <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
+        <span className="text-sm font-medium text-[var(--text)]">Descripción</span>
         <textarea name="descripcion" rows={3} className="fi-area" />
       </label>
 

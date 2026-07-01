@@ -54,7 +54,7 @@ export async function saveUser(formData: FormData) {
   }
 
   if (!userId && password.length < 6) {
-    throw new Error("Completa una contrasena de al menos 6 caracteres.");
+    throw new Error("Completa una contraseña de al menos 6 caracteres.");
   }
 
   if (userId) {

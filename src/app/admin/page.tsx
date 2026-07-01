@@ -13,7 +13,7 @@ const SECTIONS = [
   { href: "/admin/usos",         icon: "bookmark"   as const, label: "Usos",            desc: "Usos de espacio" },
   { href: "/admin/equipamientos",icon: "package"    as const, label: "Equipamientos",   desc: "Catálogo de equipos" },
   { href: "/admin/estados",      icon: "zap"        as const, label: "Estados físicos", desc: "Estados de conservación" },
-  { href: "/admin/imagenes",     icon: "file"       as const, label: "Imagenes",         desc: "Planos y fotos Base64" },
+  { href: "/admin/imagenes",     icon: "file"       as const, label: "Imágenes",         desc: "Planos y fotos Base64" },
   { href: "/admin/usuarios",     icon: "users"      as const, label: "Usuarios",        desc: "Cuentas y permisos" },
 ];
 

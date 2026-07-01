@@ -68,7 +68,7 @@ export const BLOQUES: Bloque[] = [
   },
 ];
 
-export const ESPACIOS: Espacio[] = [
+const ESPACIOS_BASE: Omit<Espacio, "bloqueNombre">[] = [
   // ================= BLOQUE A =================
   // --- Planta Baja ---
   { id: "a-pb-decanato", codigo: "A-PB-01", nombre: "Decanato", tipo: "oficina", bloqueId: "a", planta: "Planta Baja", descripcion: "Despacho del Decanato de la Facultad de Ingeniería Industrial." },
@@ -366,6 +366,11 @@ export const ESPACIOS: Espacio[] = [
     descripcion: "Módulo de baños distribuido en tres compartimentos, ubicado al extremo este de la nave.",
   },
 ];
+
+export const ESPACIOS: Espacio[] = ESPACIOS_BASE.map((e) => ({
+  ...e,
+  bloqueNombre: BLOQUES.find((b) => b.id === e.bloqueId)?.nombre ?? e.bloqueId,
+}));
 
 export function getBloque(id: string): Bloque | undefined {
   return BLOQUES.find((b) => b.id === id);

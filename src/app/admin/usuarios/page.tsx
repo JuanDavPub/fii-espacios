@@ -18,11 +18,11 @@ export default async function UsuariosPage() {
           <div>
             <p className="badge-pill bg-[var(--primary-light)] text-[var(--primary)]">
               <Icon name="shield" className="h-3.5 w-3.5" />
-              Administracion
+              Administración
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text)]">Administrar usuarios</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">
-              Crea, edita y elimina cuentas mediante ventanas emergentes. Las acciones estan disponibles solo para administradores.
+              Crea, edita y elimina cuentas mediante ventanas emergentes. Las acciones están disponibles solo para administradores.
             </p>
           </div>
           <div className="kpi-card p-4">

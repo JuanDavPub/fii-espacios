@@ -1,8 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Icon from "@/components/Icon";
+
+const subscribeNoop = () => () => {};
+/* Montaje en cliente sin setState-en-efecto (evita hydration mismatch con Portal) */
+function useMounted() {
+  return useSyncExternalStore(subscribeNoop, () => true, () => false);
+}
 
 type Size = "sm" | "md" | "lg" | "xl";
 
@@ -25,6 +31,7 @@ type Props = {
   iconName?: React.ComponentProps<typeof Icon>["name"];
   size?: Size;
   pending?: boolean;
+  submitDisabled?: boolean;
   formAction: (data: FormData) => void | Promise<void>;
   submitLabel?: string;
   children: React.ReactNode;
@@ -38,13 +45,12 @@ export default function AdminFormModal({
   iconName,
   size = "md",
   pending = false,
+  submitDisabled = false,
   formAction,
   submitLabel = "Guardar",
   children,
 }: Props) {
-  /* ── Montaje en cliente (evitar hydration mismatch con Portal) ──── */
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useMounted();
 
   const dialogRef    = useRef<HTMLElement>(null);
   const prevFocusRef = useRef<Element | null>(null);
@@ -190,7 +196,7 @@ export default function AdminFormModal({
               </button>
               <button
                 type="submit"
-                disabled={pending}
+                disabled={pending || submitDisabled}
                 aria-busy={pending}
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2B6CB0] to-[#3B82F6] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(43,108,176,0.28)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(43,108,176,0.34)] disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2"
               >

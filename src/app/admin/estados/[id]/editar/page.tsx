@@ -34,7 +34,7 @@ export default async function EditarEstadoPage({ params }: { params: Promise<{ i
           </select>
         </label>
         <label className="space-y-1 sm:col-span-2">
-          <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
+          <span className="text-sm font-medium text-[var(--text)]">Descripción</span>
           <textarea name="descripcion" rows={3} defaultValue={estado.descripcion ?? ""} className="fi-area" />
         </label>
         <div className="sm:col-span-2 flex justify-end gap-3">

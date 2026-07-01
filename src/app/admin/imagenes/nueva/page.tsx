@@ -7,6 +7,7 @@ import ImagenForm from "../ImagenForm";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Nueva imagen | Espacios FII" };
 
+
 async function getOptions() {
   const [bloques, plantas, espacios] = await Promise.all([
     prisma.bloque.findMany({ orderBy: { orden: "asc" }, select: { id: true, nombre: true, slug: true } }),
@@ -41,7 +42,7 @@ export default async function NuevaImagenPage({ searchParams }: { searchParams: 
   const presetEntidad = entidadValida(params.entidad);
   const presetEntidadId = presetEntidad ? params.entidadId : undefined;
   const backHref = adminHref(params.backHref);
-  const backLabel = params.backLabel || "Imagenes";
+  const backLabel = params.backLabel || "Imágenes";
 
   return (
     <AdminModal title="Nueva imagen" backHref={backHref} backLabel={backLabel} size="xl">

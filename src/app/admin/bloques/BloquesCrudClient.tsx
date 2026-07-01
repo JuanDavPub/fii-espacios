@@ -122,7 +122,7 @@ export default function BloquesCrudClient({ bloques }: { bloques: Bloque[] }) {
                 <th className="px-5 py-3 font-semibold">Plantas</th>
                 <th className="px-5 py-3 font-semibold">Espacios</th>
                 <th className="px-5 py-3 font-semibold">Estado</th>
-                <th className="px-5 py-3 text-right font-semibold">Acciones</th>
+                <th className="sticky right-0 bg-[var(--secondary)] px-5 py-3 text-right font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -142,7 +142,7 @@ export default function BloquesCrudClient({ bloques }: { bloques: Bloque[] }) {
                       {b.activo ? "Activo" : "Inactivo"}
                     </span>
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="sticky right-0 bg-white px-5 py-4">
                     <div className="flex justify-end gap-2">
                       <button type="button" onClick={() => openPlantas(b)}
                         className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[var(--border-soft)] px-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--primary)] hover:text-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"

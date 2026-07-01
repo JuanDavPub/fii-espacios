@@ -21,13 +21,13 @@ function intValue(formData: FormData, key: string, fallback = 0) {
 
 function assertTipo(tipo: string): asserts tipo is TipoImagen {
   if (!["PLANO", "REFERENCIAL", "FOTO", "CROQUIS", "OTRO"].includes(tipo)) {
-    throw new Error("Tipo de imagen no valido.");
+    throw new Error("Tipo de imagen no válido.");
   }
 }
 
 async function fileToBase64(file: File) {
   if (!file || file.size === 0) throw new Error("Debes seleccionar una imagen.");
-  if (file.size > MAX_BYTES) throw new Error("La imagen supera el maximo permitido de 2 MB.");
+  if (file.size > MAX_BYTES) throw new Error("La imagen supera el máximo permitido de 2 MB.");
   if (!MIME_PERMITIDOS.has(file.type)) throw new Error("Formato no permitido. Usa PNG, JPG, WEBP o SVG.");
   const buffer = Buffer.from(await file.arrayBuffer());
   const base64 = buffer.toString("base64");
@@ -68,9 +68,9 @@ async function commonImageData(formData: FormData, fileRequired: boolean) {
 
 async function crearImagenRelacionada(entidad: Entidad, entidadId: string, formData: FormData) {
   await requireAdminAction();
-  if (!entidadId) throw new Error("Entidad relacionada no valida.");
+  if (!entidadId) throw new Error("Entidad relacionada no válida.");
   const data = await commonImageData(formData, true);
-  if (!data.mimeType || !data.base64) throw new Error("Debes seleccionar una imagen valida.");
+  if (!data.mimeType || !data.base64) throw new Error("Debes seleccionar una imagen válida.");
   const createData = data as typeof data & { mimeType: string; base64: string };
 
   if (entidad === "BLOQUE") {
@@ -119,7 +119,7 @@ export async function crearEspacioImagen(espacioId: string, formData: FormData) 
 export async function crearImagen(formData: FormData) {
   const entidad = text(formData, "entidad") as Entidad;
   const entidadId = text(formData, "entidadId");
-  if (!["BLOQUE", "PLANTA", "ESPACIO"].includes(entidad)) throw new Error("Entidad de imagen no valida.");
+  if (!["BLOQUE", "PLANTA", "ESPACIO"].includes(entidad)) throw new Error("Entidad de imagen no válida.");
   await crearImagenRelacionada(entidad, entidadId, formData);
 }
 

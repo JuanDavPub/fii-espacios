@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { fetchBloque, fetchBloqueDetalleImagenes, fetchEspaciosDeBloque } from "@/lib/espacios";
 import EspacioCard from "@/components/EspacioCard";
 import ImageCarousel from "@/components/ImageCarousel";
+import ImagenConFallback from "@/components/ImagenConFallback";
 
 export const dynamic = "force-dynamic";
 
@@ -88,7 +89,7 @@ export default async function BloqueDetailPage({
           <ImageCarousel
             imagenPrincipal={bloqueDetalle.imagenes[0]}
             imagenesSecundarias={bloqueDetalle.imagenes.slice(1)}
-            alt={`Imagenes de ${bloque.nombre}`}
+            alt={`Imágenes de ${bloque.nombre}`}
           />
         </section>
       )}
@@ -123,15 +124,18 @@ export default async function BloqueDetailPage({
               ) : (
                 <div className="overflow-hidden rounded-xl border border-[var(--border-soft)] bg-[var(--secondary)]">
                   <div className="aspect-[16/9] w-full">
-                    <img
+                    <ImagenConFallback
                       src={planta.imagen}
                       alt={`Plano de ${bloque.nombre} - ${planta.nombre}`}
                       className="h-full w-full object-contain p-3"
+                      placeholder="Plano no disponible"
                     />
                   </div>
-                  <p className="border-t border-[var(--border-soft)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
-                    Plano de referencia - {bloque.nombre}, {planta.nombre}.
-                  </p>
+                  {planta.imagen && (
+                    <p className="border-t border-[var(--border-soft)] bg-white px-4 py-3 text-xs text-[var(--text-muted)]">
+                      Plano de referencia - {bloque.nombre}, {planta.nombre}.
+                    </p>
+                  )}
                 </div>
               )}
 

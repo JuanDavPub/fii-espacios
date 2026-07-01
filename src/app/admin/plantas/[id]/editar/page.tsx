@@ -25,7 +25,7 @@ export default async function EditarPlantaPage({ params }: { params: Promise<{ i
             <input name="nombre" required defaultValue={planta.nombre} className="fi" />
           </label>
           <label className="space-y-1">
-            <span className="text-sm font-medium text-[var(--text)]">Codigo</span>
+            <span className="text-sm font-medium text-[var(--text)]">Código</span>
             <input name="codigo" defaultValue={planta.codigo ?? ""} className="fi" />
           </label>
           <label className="space-y-1">
@@ -48,7 +48,7 @@ export default async function EditarPlantaPage({ params }: { params: Promise<{ i
             <input name="imagenUrl" required defaultValue={planta.imagenUrl} className="fi" />
           </label>
           <label className="space-y-1 sm:col-span-2">
-            <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
+            <span className="text-sm font-medium text-[var(--text)]">Descripción</span>
             <textarea name="descripcion" rows={3} defaultValue={planta.descripcion ?? ""} className="fi-area" />
           </label>
           <label className="space-y-1 sm:col-span-2">

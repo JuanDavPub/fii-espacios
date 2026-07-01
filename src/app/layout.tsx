@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Espacios FII | Facultad de Ingenieria Industrial - UG",
+  title: "Espacios FII | Facultad de Ingeniería Industrial - UG",
   description:
-    "Guia de bloques, aulas, laboratorios y demas espacios de la Facultad de Ingenieria Industrial de la Universidad de Guayaquil.",
+    "Guía de bloques, aulas, laboratorios y demás espacios de la Facultad de Ingeniería Industrial de la Universidad de Guayaquil.",
 };
 
 export default function RootLayout({

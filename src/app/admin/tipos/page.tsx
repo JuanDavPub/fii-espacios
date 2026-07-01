@@ -27,7 +27,7 @@ export default async function AdminTiposPage() {
             <thead className="border-b border-[var(--border-soft)] bg-[var(--secondary)] text-left">
               <tr>
                 {["ID","Etiqueta","Accent","Orden","Estado","Acciones"].map((h) => (
-                  <th key={h} className="px-4 py-3 font-medium text-[var(--text-secondary)]">{h}</th>
+                  <th key={h} className={`px-4 py-3 font-medium text-[var(--text-secondary)] ${h === "Acciones" ? "sticky right-0 bg-[var(--secondary)] text-right" : ""}`}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -61,7 +61,7 @@ export default async function AdminTiposPage() {
                         </button>
                       </form>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="sticky right-0 bg-white px-4 py-3">
                       <div className="flex items-center gap-1">
                         <Link href={`/admin/tipos/${tipo.id}/editar`} className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary-light)]">Editar</Link>
                         <DeleteButton formAction={deleteAction} label={tipo.etiqueta} />

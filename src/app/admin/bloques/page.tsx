@@ -21,7 +21,7 @@ export default async function AdminBloquesPage() {
           <div>
             <p className="badge-pill bg-[var(--primary-light)] text-[var(--primary)]">
               <Icon name="shield" className="h-3.5 w-3.5" />
-              Administracion
+              Administración
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text)]">Administrar bloques</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-secondary)]">

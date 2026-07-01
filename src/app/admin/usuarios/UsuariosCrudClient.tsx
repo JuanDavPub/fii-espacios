@@ -90,7 +90,7 @@ export default function UsuariosCrudClient({
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">
               Bloque de acciones
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Gestion del CRUD</h2>
+            <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Gestión del CRUD</h2>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
               Crea usuarios desde una ventana emergente y administra acciones por registro.
             </p>
@@ -136,7 +136,7 @@ export default function UsuariosCrudClient({
                 <th className="px-5 py-3 font-semibold">Nombre</th>
                 <th className="px-5 py-3 font-semibold">Rol</th>
                 <th className="px-5 py-3 font-semibold">Creado</th>
-                <th className="px-5 py-3 text-right font-semibold">Acciones</th>
+                <th className="sticky right-0 bg-[var(--secondary)] px-5 py-3 text-right font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -172,7 +172,7 @@ export default function UsuariosCrudClient({
                     </span>
                   </td>
                   <td className="px-5 py-4 text-[var(--text-secondary)]">{formatDate(usuario.createdAt)}</td>
-                  <td className="px-5 py-4">
+                  <td className="sticky right-0 bg-white px-5 py-4">
                     <div className="flex justify-end gap-2">
                       <button
                         type="button"
@@ -297,7 +297,7 @@ export default function UsuariosCrudClient({
                 <label className="space-y-2">
                   <span className="flex items-center gap-1.5 text-sm font-semibold text-[var(--text)]">
                     <Icon name="lock" className="h-3.5 w-3.5 text-[var(--text-muted)]" />
-                    {modalMode === "create" ? "Contrasena" : "Nueva contrasena"}
+                    {modalMode === "create" ? "Contraseña" : "Nueva contraseña"}
                   </span>
                   <div className="relative">
                     <input
@@ -305,7 +305,7 @@ export default function UsuariosCrudClient({
                       type={showPassword ? "text" : "password"}
                       required={modalMode === "create"}
                       minLength={6}
-                      placeholder={modalMode === "edit" ? "Dejar en blanco para no cambiarla" : "Minimo 6 caracteres"}
+                      placeholder={modalMode === "edit" ? "Dejar en blanco para no cambiarla" : "Mínimo 6 caracteres"}
                       className="fi"
                       style={{ paddingRight: "2.75rem" }}
                     />
@@ -313,7 +313,7 @@ export default function UsuariosCrudClient({
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
                       aria-pressed={showPassword}
-                      aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}
+                      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                       className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-[var(--text-muted)] transition hover:text-[var(--primary)]"
                     >
                       <Icon name={showPassword ? "eyeOff" : "eye"} className="h-4 w-4" />

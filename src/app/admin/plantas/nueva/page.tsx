@@ -24,7 +24,7 @@ export default async function NuevaPlantaPage() {
             <input name="nombre" required className="fi" />
           </label>
           <label className="space-y-1">
-            <span className="text-sm font-medium text-[var(--text)]">Codigo</span>
+            <span className="text-sm font-medium text-[var(--text)]">Código</span>
             <input name="codigo" className="fi" />
           </label>
           <label className="space-y-1">
@@ -36,7 +36,7 @@ export default async function NuevaPlantaPage() {
             <input name="imagenUrl" required placeholder="/planos/bloque-a-b-c-planta-baja.svg" className="fi" />
           </label>
           <label className="space-y-1 sm:col-span-2">
-            <span className="text-sm font-medium text-[var(--text)]">Descripcion</span>
+            <span className="text-sm font-medium text-[var(--text)]">Descripción</span>
             <textarea name="descripcion" rows={3} className="fi-area" />
           </label>
           <label className="space-y-1 sm:col-span-2">
