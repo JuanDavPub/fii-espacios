@@ -17,7 +17,7 @@ export default auth((req) => {
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 
-  if (pathname.startsWith("/admin") && req.auth?.user.role !== "ADMIN") {
+  if (pathname.startsWith("/admin") && req.auth?.user?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/?accessDenied=1", req.nextUrl));
   }
 });

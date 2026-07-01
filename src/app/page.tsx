@@ -32,7 +32,7 @@ export default async function Home() {
               <Icon name="sparkles" className="h-3.5 w-3.5" />
               Panel principal
             </span>
-            <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h1 className="mt-4 max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-4xl">
               Encuentra cualquier espacio de la facultad
             </h1>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-white/85 sm:text-base">
@@ -44,14 +44,14 @@ export default async function Home() {
           <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
             <Link
               href="/bloques"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-[var(--primary)] shadow-[0_12px_28px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(15,23,42,0.22)] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2B6CB0]"
+              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[var(--primary)] shadow-[0_12px_28px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(15,23,42,0.22)] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2B6CB0]"
             >
               <Icon name="building" />
               Explorar bloques
             </Link>
             <Link
               href="/espacios"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/40 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2B6CB0]"
+              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#2B6CB0]"
             >
               <Icon name="search" />
               Buscar espacio
@@ -119,7 +119,7 @@ export default async function Home() {
                     {bloque.plantas.length === 1 ? "1 nivel" : `${bloque.plantas.length} niveles`}
                   </span>
                 </div>
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
+                <span className="mt-4 inline-flex w-fit items-center gap-1.5 self-start rounded-lg border border-blue-600 px-3 py-1 text-sm font-semibold text-blue-600 transition group-hover:bg-blue-50">
                   Ver bloque
                   <Icon name="chevronRight" className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </span>

@@ -7,12 +7,12 @@ import { animate, stagger } from "animejs";
 import Icon from "@/components/Icon";
 
 const fieldShellClass =
-  "peer h-[58px] w-full rounded-xl border border-[#DCE5EF] bg-white pl-11 pr-4 pt-7 pb-1.5 text-sm text-[#243447] placeholder-transparent transition hover:border-[#94A3B8] focus:border-[#0A4A82] focus:outline-none focus:ring-4 focus:ring-[#0A4A82]/10";
+  "peer h-14 w-full rounded-xl border border-[var(--login-border)] bg-white pl-11 pr-4 pt-6 pb-1 text-sm text-[var(--login-text)] placeholder-transparent transition hover:border-[var(--login-secondary)] focus:border-[var(--login-secondary)] focus:outline-none focus:ring-4 focus:ring-[var(--login-accent)]/25";
 
 const floatingLabelClass =
-  "pointer-events-none absolute left-11 top-1/2 -translate-y-1/2 text-sm text-[#94A3B8] transition-all duration-150 " +
-  "peer-focus:top-[8px] peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:font-semibold peer-focus:text-[#0A4A82] " +
-  "peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:translate-y-0 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:font-semibold peer-[&:not(:placeholder-shown)]:text-[#64748B]";
+  "pointer-events-none absolute left-11 top-1/2 -translate-y-1/2 text-sm text-[var(--login-text-secondary)] transition-all duration-150 " +
+  "peer-focus:top-[8px] peer-focus:translate-y-0 peer-focus:text-[11px] peer-focus:font-semibold peer-focus:text-[var(--login-secondary)] " +
+  "peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:translate-y-0 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:font-semibold peer-[&:not(:placeholder-shown)]:text-[var(--login-text-secondary)]";
 
 export default function LoginForm() {
   const router        = useRouter();
@@ -30,6 +30,7 @@ export default function LoginForm() {
   const statusId     = useId();
   const usernameId   = useId();
   const passwordId   = useId();
+  const rememberId   = useId();
   const formRef      = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -100,7 +101,7 @@ export default function LoginForm() {
         <div className="anim-field relative">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8]"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--login-text-secondary)]"
           >
             <Icon name="mail" className="h-[18px] w-[18px]" />
           </span>
@@ -127,7 +128,7 @@ export default function LoginForm() {
         <div className="anim-field relative">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8]"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--login-text-secondary)]"
           >
             <Icon name="lock" className="h-[18px] w-[18px]" />
           </span>
@@ -151,7 +152,7 @@ export default function LoginForm() {
           <button
             type="button"
             onClick={() => setShowPassword((v) => !v)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-[#94A3B8] transition hover:text-[#0A4A82] focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-[var(--login-text-secondary)] transition hover:text-[var(--login-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--login-secondary)] focus:ring-offset-2"
             aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             aria-pressed={showPassword}
           >
@@ -176,23 +177,49 @@ export default function LoginForm() {
           </div>
         )}
 
-        {/* Recordar / recuperar */}
-        <div className="anim-field flex items-center justify-between gap-3 text-sm">
-          <label className="inline-flex cursor-pointer items-center gap-2.5 text-[#64748B]">
+        {/* Recuperar contraseña — debajo del campo de contraseña, propio renglón */}
+        <div className="anim-field flex justify-end">
+          <a
+            href="mailto:soporte@ug.edu.ec"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold underline decoration-1 underline-offset-2 transition hover:decoration-2 focus:outline-none focus:ring-2 focus:ring-[var(--login-secondary)] focus:ring-offset-2 rounded-md"
+            style={{ color: "var(--login-primary)" }}
+          >
+            <Icon name="lock" className="h-3.5 w-3.5" />
+            Recuperar contraseña
+          </a>
+        </div>
+
+        {/* Recordarme — checkbox propio, con caja personalizada */}
+        <div className="anim-field">
+          <label
+            htmlFor={rememberId}
+            className="cursor-pointer text-sm"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.625rem", color: "var(--login-text-secondary)" }}
+          >
             <input
+              id={rememberId}
               type="checkbox"
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
-              className="h-4 w-4 rounded border-[#DCE5EF] text-[#0A4A82] accent-[#0A4A82] focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
+              className="peer sr-only"
             />
-            Recordarme en este dispositivo
+            <span
+              aria-hidden="true"
+              className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2"
+              style={
+                remember
+                  ? { borderColor: "var(--login-primary)", backgroundColor: "var(--login-primary)" }
+                  : { borderColor: "var(--login-border)", backgroundColor: "#fff" }
+              }
+            >
+              {remember && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </span>
+            Recordarme
           </label>
-          <a
-            href="mailto:soporte@ug.edu.ec"
-            className="rounded-md font-semibold text-[#0A4A82] no-underline transition hover:text-[#083B68] hover:underline focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
-          >
-            Recuperar contraseña
-          </a>
         </div>
 
         {/* Botón de envío */}
@@ -201,7 +228,7 @@ export default function LoginForm() {
           disabled={loading}
           aria-disabled={loading}
           aria-describedby={statusId}
-          className="anim-field flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0A4A82] to-[#12689e] px-4 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(10,74,130,0.3)] transition hover:-translate-y-0.5 hover:from-[#083B68] hover:to-[#0d5686] hover:shadow-[0_18px_40px_rgba(10,74,130,0.4)] active:translate-y-0 active:shadow-none disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
+          className="anim-field flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--login-primary)] to-[var(--login-secondary)] px-4 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(11,79,122,0.3)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(11,79,122,0.45)] active:translate-y-0 active:shadow-none disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[var(--login-secondary)] focus:ring-offset-2"
         >
           {loading && (
             <span
@@ -209,7 +236,8 @@ export default function LoginForm() {
               className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
             />
           )}
-          {loading ? "Verificando acceso…" : "Ingresar"}
+          {loading ? "Verificando acceso…" : "Ingresar al sistema"}
+          {!loading && <Icon name="arrowRight" className="h-4 w-4" />}
         </button>
       </form>
     </>

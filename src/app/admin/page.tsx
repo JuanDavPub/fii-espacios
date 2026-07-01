@@ -38,12 +38,12 @@ export default async function AdminDashboardPage() {
         {[
           { label: "Bloques",       value: kpis.bloques,       sub: `${kpis.bloquesActivos} activos`,       color: "text-[var(--primary)]" },
           { label: "Plantas",       value: kpis.plantas,       sub: "niveles totales",                      color: "text-[var(--primary)]" },
-          { label: "Espacios",      value: kpis.espacios,      sub: `${kpis.espaciosActivos} activos`,      color: "text-green-600" },
-          { label: "Inactivos",     value: kpis.espacios - kpis.espaciosActivos, sub: "espacios inactivos", color: "text-[var(--text-muted)]" },
-          { label: "Tipos",         value: kpis.tipos,         sub: "tipos de espacio",                     color: "text-violet-600" },
-          { label: "Usos",          value: kpis.usos,          sub: "usos catalogados",                     color: "text-sky-600" },
-          { label: "Equipamientos", value: kpis.equipamientos, sub: "ítems de equipamiento",                color: "text-amber-600" },
-          { label: "Estados",       value: kpis.estados,       sub: "estados físicos",                      color: "text-rose-600" },
+          { label: "Espacios",      value: kpis.espacios,      sub: `${kpis.espaciosActivos} activos`,      color: "text-[var(--primary)]" },
+          { label: "Inactivos",     value: kpis.espacios - kpis.espaciosActivos, sub: "espacios inactivos", color: "text-[var(--primary)]" },
+          { label: "Tipos",         value: kpis.tipos,         sub: "tipos de espacio",                     color: "text-[var(--primary)]" },
+          { label: "Usos",          value: kpis.usos,          sub: "usos catalogados",                     color: "text-[var(--primary)]" },
+          { label: "Equipamientos", value: kpis.equipamientos, sub: "ítems de equipamiento",                color: "text-[var(--primary)]" },
+          { label: "Estados",       value: kpis.estados,       sub: "estados físicos",                      color: "text-[var(--primary)]" },
         ].map((kpi) => (
           <div key={kpi.label} className="kpi-card p-5">
             <p className="relative text-xs text-[var(--text-secondary)]">{kpi.label}</p>
@@ -68,7 +68,7 @@ export default async function AdminDashboardPage() {
               </span>
               <div>
                 <p className="text-sm font-semibold text-[var(--text)]">{s.label}</p>
-                <p className="text-xs text-[var(--text-muted)]">{s.desc}</p>
+                <p className="text-xs text-[var(--text-secondary)]">{s.desc}</p>
               </div>
             </Link>
           ))}

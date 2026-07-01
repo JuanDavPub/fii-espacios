@@ -72,14 +72,6 @@ export default function EspaciosBuscador({ bloques, espacios }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <section className="surface-card scroll-reveal overflow-hidden">
-        <div className="border-b border-[var(--divider)] px-5 py-4 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Resultados</p>
-          <h2 className="mt-1 text-xl font-semibold text-[var(--text)]">Consulta de espacios</h2>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]" suppressHydrationWarning>
-            Generado el {new Date().toLocaleDateString("es-EC")} con {resultados.length} resultado{resultados.length === 1 ? "" : "s"}.
-          </p>
-        </div>
-
         <div className="grid gap-3 bg-[var(--secondary)]/50 p-5 sm:grid-cols-[1.4fr_1fr_1fr] sm:p-6">
           <label className="space-y-2">
             <span className="text-sm font-semibold text-[var(--text)]">Búsqueda</span>
@@ -128,6 +120,10 @@ export default function EspaciosBuscador({ bloques, espacios }: Props) {
           </label>
         </div>
       </section>
+
+      <p className="text-sm text-[var(--text-secondary)]" suppressHydrationWarning>
+        {resultados.length} resultado{resultados.length === 1 ? "" : "s"} · actualizado el {new Date().toLocaleDateString("es-EC")}
+      </p>
 
       {resultados.length === 0 ? (
         <div className="surface-card border-dashed p-10 text-center">

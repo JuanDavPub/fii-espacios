@@ -28,16 +28,16 @@ export default async function AdminBloquesPage() {
               Gestiona los bloques de la facultad: crea, edita, activa/desactiva y elimina. Desde cada bloque puedes administrar sus plantas y planos.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="kpi-card p-4">
+          <div className="flex flex-wrap gap-3">
+            <div className="kpi-card min-w-[90px] p-4">
               <p className="relative text-xs text-[var(--text-secondary)]">Bloques</p>
               <p className="relative mt-1 text-2xl font-semibold text-[var(--primary)]">{bloques.length}</p>
             </div>
-            <div className="kpi-card p-4">
+            <div className="kpi-card min-w-[90px] p-4">
               <p className="relative text-xs text-[var(--text-secondary)]">Activos</p>
               <p className="relative mt-1 text-2xl font-semibold text-green-600">{activos}</p>
             </div>
-            <div className="kpi-card p-4">
+            <div className="kpi-card min-w-[90px] p-4">
               <p className="relative text-xs text-[var(--text-secondary)]">Espacios</p>
               <p className="relative mt-1 text-2xl font-semibold text-[var(--primary)]">{totalEspacios}</p>
             </div>

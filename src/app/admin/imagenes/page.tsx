@@ -49,8 +49,8 @@ export default async function AdminImagenesPage() {
                     <img src={imagenBase64Src(imagen) ?? ""} alt={imagen.nombre ?? "Imagen"} className="h-16 w-24 rounded-lg border border-[var(--border-soft)] object-contain" />
                   </td>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-[var(--text)]">{imagen.entidad}</p>
-                    <p className="font-mono text-xs text-[var(--text-muted)]">{imagen.entidadId}</p>
+                    <p className="font-medium text-[var(--text)]">{imagen.entidadNombre}</p>
+                    <p className="text-xs text-[var(--text-muted)]">{imagen.entidad}</p>
                   </td>
                   <td className="px-4 py-3 text-[var(--text-secondary)]">{imagen.tipo}</td>
                   <td className="px-4 py-3">
@@ -68,7 +68,7 @@ export default async function AdminImagenesPage() {
                   </td>
                   <td className="sticky right-0 bg-white px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <Link href={`/admin/imagenes/${imagen.id}/editar`} className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary-light)]">Editar</Link>
+                      <Link href={`/admin/imagenes/${imagen.id}/editar`} className="inline-flex items-center rounded border border-blue-500 px-2.5 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50">Editar</Link>
                       <DeleteButton formAction={deleteAction.bind(null, imagen.id)} label={imagen.nombre ?? "imagen"} />
                     </div>
                   </td>

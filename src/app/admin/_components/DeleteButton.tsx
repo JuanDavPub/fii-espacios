@@ -18,7 +18,7 @@ export default function DeleteButton({
     >
       <button
         type="submit"
-        className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+        className="inline-flex items-center font-medium border border-red-400 text-red-600 rounded px-2 py-1 text-sm hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
       >
         Eliminar
       </button>

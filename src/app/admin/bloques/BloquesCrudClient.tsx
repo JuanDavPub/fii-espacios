@@ -150,20 +150,16 @@ export default function BloquesCrudClient({ bloques }: { bloques: Bloque[] }) {
                         <Icon name="home" className="h-3.5 w-3.5" />Plantas
                       </button>
                       <button type="button" onClick={() => openEdit(b)}
-                        className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[var(--border-soft)] px-3 text-sm font-semibold text-[var(--primary)] transition hover:border-[var(--primary)] hover:bg-[var(--primary-light)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2">
+                        className="inline-flex items-center justify-center gap-1.5 border rounded-md px-3 py-1.5 text-sm font-medium transition-colors border-blue-500 text-blue-600 hover:bg-blue-50">
                         <Icon name="edit" className="h-3.5 w-3.5" />Editar
                       </button>
                       <button type="button" onClick={() => handleToggle(b)}
-                        className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                          b.activo
-                            ? "border-amber-200 text-amber-700 hover:bg-amber-50 focus:ring-amber-400"
-                            : "border-green-200 text-green-700 hover:bg-green-50 focus:ring-green-400"
-                        }`}>
+                        className="inline-flex items-center justify-center gap-1.5 border rounded-md px-3 py-1.5 text-sm font-medium transition-colors border-orange-400 text-orange-600 hover:bg-orange-50">
                         <Icon name={b.activo ? "toggleOn" : "toggleOff"} className="h-3.5 w-3.5" />
                         {b.activo ? "Desactivar" : "Activar"}
                       </button>
                       <button type="button" onClick={() => handleDelete(b)}
-                        className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[var(--danger)]/25 px-3 text-sm font-semibold text-[var(--danger)] transition hover:bg-[var(--danger-light)] focus:outline-none focus:ring-2 focus:ring-[var(--danger)] focus:ring-offset-2">
+                        className="inline-flex items-center justify-center gap-1.5 border rounded-md px-3 py-1.5 text-sm font-medium transition-colors border-red-400 text-red-600 hover:bg-red-50">
                         <Icon name="trash" className="h-3.5 w-3.5" />Eliminar
                       </button>
                     </div>

@@ -132,11 +132,11 @@ export default function UsuariosCrudClient({
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead className="bg-[var(--secondary)] text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">
               <tr>
-                <th className="px-5 py-3 font-semibold">Usuario</th>
-                <th className="px-5 py-3 font-semibold">Nombre</th>
-                <th className="px-5 py-3 font-semibold">Rol</th>
+                <th className="w-32 px-5 py-3 font-semibold">Usuario</th>
+                <th className="w-48 px-5 py-3 font-semibold">Nombre</th>
+                <th className="min-w-[160px] px-5 py-3 font-semibold">Rol</th>
                 <th className="px-5 py-3 font-semibold">Creado</th>
-                <th className="sticky right-0 bg-[var(--secondary)] px-5 py-3 text-right font-semibold">Acciones</th>
+                <th className="sticky right-0 w-auto bg-[var(--secondary)] px-5 py-3 text-right font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -159,15 +159,15 @@ export default function UsuariosCrudClient({
                       <span className="ml-2 badge-pill bg-[var(--secondary)] text-[var(--text-muted)]">Tu cuenta</span>
                     )}
                   </td>
-                  <td className="px-5 py-4">
+                  <td className="min-w-[160px] px-5 py-4">
                     <span
-                      className={`badge-pill ${
+                      className={`badge-pill inline-flex w-fit shrink-0 whitespace-nowrap rounded-full px-2 py-1 text-xs ${
                         usuario.role === "ADMIN"
                           ? "bg-[var(--primary-soft)] text-[var(--primary)]"
                           : "bg-[var(--secondary)] text-[var(--text-secondary)]"
                       }`}
                     >
-                      <Icon name={usuario.role === "ADMIN" ? "shield" : "users"} className="h-3.5 w-3.5" />
+                      <Icon name={usuario.role === "ADMIN" ? "shield" : "users"} className="h-3.5 w-3.5 shrink-0" />
                       {usuario.role === "ADMIN" ? "Administrador" : "Usuario"}
                     </span>
                   </td>

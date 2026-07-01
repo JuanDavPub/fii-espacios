@@ -56,7 +56,7 @@ export default async function AdminEstadosPage() {
                   </td>
                   <td className="sticky right-0 bg-white px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <Link href={`/admin/estados/${estado.id}/editar`} className="inline-flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary-light)]">Editar</Link>
+                      <Link href={`/admin/estados/${estado.id}/editar`} className="inline-flex items-center font-medium border border-blue-500 text-blue-600 rounded px-2 py-1 text-sm hover:bg-blue-50">Editar</Link>
                       <DeleteButton formAction={deleteEstado.bind(null, estado.id)} label={estado.nombre} />
                     </div>
                   </td>

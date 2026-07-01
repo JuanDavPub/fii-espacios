@@ -248,15 +248,45 @@ body {
   background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-soft) 100%);
 }
 
-.login-gradient {
-  background: linear-gradient(160deg, #0a2f52 0%, #0f4a82 48%, #1b6294 100%);
+/* ── Login — paleta institucional clara ─────────────────────────────────── */
+:root {
+  --login-bg: #F5F8FB;
+  --login-card: #FFFFFF;
+  --login-primary: #0B4F7A;
+  --login-secondary: #1877A6;
+  --login-accent: #4FC3D7;
+  --login-text: #1E2A36;
+  --login-text-secondary: #6B7A90;
+  --login-border: #DDE6EF;
+  --login-shadow: rgba(11, 79, 122, 0.12);
 }
 
-.login-pattern {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 56px 56px;
+.login-gradient {
+  background: linear-gradient(160deg, var(--login-bg) 0%, #eef4f9 55%, #e8f2f6 100%);
+}
+
+.login-blob-primary {
+  background: radial-gradient(circle, rgba(11, 79, 122, 0.14) 0%, rgba(11, 79, 122, 0) 70%);
+}
+
+.login-blob-accent {
+  background: radial-gradient(circle, rgba(79, 195, 215, 0.22) 0%, rgba(79, 195, 215, 0) 70%);
+}
+
+.login-topbar {
+  height: 5px;
+  background: linear-gradient(90deg, var(--login-primary) 0%, var(--login-secondary) 55%, var(--login-accent) 100%);
+}
+
+.login-card {
+  background: var(--login-card);
+  border: 1px solid var(--login-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 56px var(--login-shadow);
+  transition: box-shadow 220ms ease, transform 220ms ease;
+}
+.login-card:hover {
+  box-shadow: 0 28px 64px var(--login-shadow);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -377,7 +407,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   BRAND LOGO
+   BRAND
    ═══════════════════════════════════════════════════════════════════════════ */
 
 button, a, input, select, textarea {
@@ -385,47 +415,6 @@ button, a, input, select, textarea {
 }
 
 a { text-decoration: none; }
-
-.brand-logo-badge {
-  position: relative;
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,0.85);
-  background: radial-gradient(circle at 30% 20%, #ffffff 0 24%, #edf6ff 58%, #dceeff 100%);
-  box-shadow:
-    0 14px 32px rgba(43,108,176,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    inset 0 -10px 22px rgba(43,108,176,0.08);
-  isolation: isolate;
-}
-.brand-logo-img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 82%;
-  height: 82%;
-  object-fit: contain;
-}
-.brand-logo-badge::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: inherit;
-  border: 1px dashed rgba(43,108,176,0.22);
-}
-.brand-logo-badge::after {
-  content: "";
-  position: absolute;
-  inset: -42%;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.46) 50%, transparent 65%);
-  transform: translateX(-55%) rotate(10deg);
-  animation: logo-shine 4.5s ease-in-out infinite;
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SIDEBAR — Bootstrap 5 style
@@ -488,11 +477,6 @@ a { text-decoration: none; }
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(18px) scale(0.985); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes logo-shine {
-  0%, 60%, 100% { transform: translateX(-55%) rotate(10deg); }
-  75%            { transform: translateX(55%) rotate(10deg); }
 }
 
 @keyframes fade-in {
@@ -733,18 +717,18 @@ input.peer:autofill ~ label {
   transform: translateY(0) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
-  color: #0A4A82 !important;
+  color: var(--login-secondary) !important;
 }
 
 /* ── Autofill para inputs con clase peer (LoginForm) ────────────────────── */
 input.peer:-webkit-autofill,
 input.peer:-webkit-autofill:hover,
 input.peer:-webkit-autofill:focus {
-  -webkit-text-fill-color: #243447 !important;
+  -webkit-text-fill-color: var(--login-text) !important;
   -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
   box-shadow: 0 0 0 1000px #ffffff inset !important;
   transition: background-color 9999s ease-in-out 0s;
-  caret-color: #243447;
+  caret-color: var(--login-text);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

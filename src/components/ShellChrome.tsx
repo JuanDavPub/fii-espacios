@@ -283,26 +283,22 @@ export default function ShellChrome({
               aria-label="Expandir menú"
               className="flex h-20 w-full shrink-0 items-center justify-center border-b border-[var(--divider)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[var(--primary)]"
             >
-              <div className="brand-logo-badge h-10 w-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/LogoUGcolor.svg?v=5"
-                  alt="Universidad de Guayaquil"
-                  className="brand-logo-img"
-                />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/LogoUGcolor.svg?v=5"
+                alt="Universidad de Guayaquil"
+                className="h-9 w-auto"
+              />
             </button>
           ) : (
             <div className="flex h-20 shrink-0 items-center justify-between gap-3 border-b border-[var(--divider)] px-4">
               <div className="flex min-w-0 items-center gap-3">
-                <div className="brand-logo-badge h-10 w-10 shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/LogoUGcolor.svg?v=5"
-                    alt="Universidad de Guayaquil"
-                    className="brand-logo-img"
-                  />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/LogoUGcolor.svg?v=5"
+                  alt="Universidad de Guayaquil"
+                  className="h-9 w-auto shrink-0"
+                />
                 <div className="min-w-0">
                   <Link
                     href="/"
@@ -369,14 +365,12 @@ export default function ShellChrome({
       >
         {/* Logo header móvil */}
         <div className="flex h-20 shrink-0 items-center gap-3 border-b border-[var(--divider)] px-4">
-          <span className="brand-logo-badge h-10 w-10 shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/LogoUGcolor.svg?v=5"
-              alt="Universidad de Guayaquil"
-              className="brand-logo-img"
-            />
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/LogoUGcolor.svg?v=5"
+            alt="Universidad de Guayaquil"
+            className="h-9 w-auto shrink-0"
+          />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-[var(--text)]">Espacios FII</p>
             <p className="truncate text-xs text-[var(--text-muted)]">Fac. de Ing. Industrial</p>

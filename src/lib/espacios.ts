@@ -183,14 +183,14 @@ export async function fetchImagenPrincipal(entidad: string, entidadId: string, t
 
 export async function fetchImagenesAdmin() {
   const [bloques, plantas, espacios] = await Promise.all([
-    prisma.bloqueImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80 }),
-    prisma.plantaImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80 }),
-    prisma.espacioImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80 }),
+    prisma.bloqueImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80, include: { bloque: { select: { nombre: true } } } }),
+    prisma.plantaImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80, include: { planta: { select: { nombre: true, bloque: { select: { nombre: true } } } } } }),
+    prisma.espacioImagen.findMany({ orderBy: [{ createdAt: "desc" }], take: 80, include: { espacio: { select: { codigo: true, nombre: true } } } }),
   ]);
   return [
-    ...bloques.map((imagen) => ({ ...imagen, entidad: "BLOQUE" as const, entidadId: imagen.bloqueId })),
-    ...plantas.map((imagen) => ({ ...imagen, entidad: "PLANTA" as const, entidadId: imagen.plantaId })),
-    ...espacios.map((imagen) => ({ ...imagen, entidad: "ESPACIO" as const, entidadId: imagen.espacioId })),
+    ...bloques.map(({ bloque, ...imagen }) => ({ ...imagen, entidad: "BLOQUE" as const, entidadId: imagen.bloqueId, entidadNombre: bloque.nombre })),
+    ...plantas.map(({ planta, ...imagen }) => ({ ...imagen, entidad: "PLANTA" as const, entidadId: imagen.plantaId, entidadNombre: `${planta.bloque.nombre} - ${planta.nombre}` })),
+    ...espacios.map(({ espacio, ...imagen }) => ({ ...imagen, entidad: "ESPACIO" as const, entidadId: imagen.espacioId, entidadNombre: `${espacio.codigo} - ${espacio.nombre}` })),
   ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 200);
 }
 

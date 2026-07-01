@@ -28,7 +28,7 @@ export default function EspacioCard({ espacio }: { espacio: Espacio }) {
             <p className="font-mono text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
               {espacio.codigo}
             </p>
-            <h3 className="mt-0.5 truncate text-base font-semibold text-[var(--text)] transition group-hover:text-[var(--primary)]">
+            <h3 className="mt-0.5 line-clamp-2 text-base font-semibold text-[var(--text)] transition group-hover:text-[var(--primary)]">
               {espacio.nombre}
             </h3>
           </div>
@@ -41,23 +41,23 @@ export default function EspacioCard({ espacio }: { espacio: Espacio }) {
       </p>
 
       <div className="mt-4 grid gap-2 px-4 text-xs sm:grid-cols-3">
-        <span className="rounded-xl bg-[var(--secondary)] px-3 py-2 text-[var(--text-secondary)]">
-          <span className="block font-medium text-[var(--text-muted)]">Bloque</span>
+        <span className="rounded-xl border border-gray-200 bg-gray-100 px-3 py-2 text-gray-700">
+          <span className="block font-medium text-gray-500">Bloque</span>
           <span className="font-semibold text-[var(--text)]">{espacio.bloqueNombre}</span>
         </span>
-        <span className="rounded-xl bg-[var(--secondary)] px-3 py-2 text-[var(--text-secondary)]">
-          <span className="block font-medium text-[var(--text-muted)]">Planta</span>
+        <span className="rounded-xl border border-gray-200 bg-gray-100 px-3 py-2 text-gray-700">
+          <span className="block font-medium text-gray-500">Planta</span>
           <span className="font-semibold text-[var(--text)]">{espacio.planta}</span>
         </span>
-        <span className="rounded-xl bg-[var(--secondary)] px-3 py-2 text-[var(--text-secondary)]">
-          <span className="block font-medium text-[var(--text-muted)]">Capacidad</span>
+        <span className="rounded-xl border border-gray-200 bg-gray-100 px-3 py-2 text-gray-700">
+          <span className="block font-medium text-gray-500">Capacidad</span>
           <span className="font-semibold text-[var(--text)]">
             {espacio.capacidad ? `${espacio.capacidad} personas` : "No definida"}
           </span>
         </span>
       </div>
 
-      <span className="mt-4 inline-flex items-center gap-2 px-4 pb-4 text-sm font-semibold text-[var(--primary)]">
+      <span className="mx-4 mb-4 mt-4 inline-flex w-fit items-center gap-1.5 self-start rounded-lg border border-blue-600 px-3 py-1 text-sm font-semibold text-blue-600 transition group-hover:bg-blue-50">
         Ver detalle
         <Icon name="chevronRight" className="h-4 w-4 transition group-hover:translate-x-0.5" />
       </span>
