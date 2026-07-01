@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { animate, stagger } from "animejs";
 import Icon from "@/components/Icon";
 
 const fieldShellClass =
@@ -29,6 +30,19 @@ export default function LoginForm() {
   const statusId     = useId();
   const usernameId   = useId();
   const passwordId   = useId();
+  const formRef      = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    animate(formRef.current?.querySelectorAll(".anim-field") ?? [], {
+      opacity: [0, 1],
+      translateY: [10, 0],
+      duration: 450,
+      delay: stagger(90, { start: 250 }),
+      ease: "outQuad",
+    });
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -76,13 +90,14 @@ export default function LoginForm() {
       </div>
 
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         className="flex flex-col gap-5"
         noValidate
         aria-label="Formulario de inicio de sesión"
       >
         {/* Campo usuario */}
-        <div className="relative">
+        <div className="anim-field relative">
           <span
             aria-hidden="true"
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8]"
@@ -109,7 +124,7 @@ export default function LoginForm() {
         </div>
 
         {/* Campo contraseña */}
-        <div className="relative">
+        <div className="anim-field relative">
           <span
             aria-hidden="true"
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8]"
@@ -162,7 +177,7 @@ export default function LoginForm() {
         )}
 
         {/* Recordar / recuperar */}
-        <div className="flex items-center justify-between gap-3 text-sm">
+        <div className="anim-field flex items-center justify-between gap-3 text-sm">
           <label className="inline-flex cursor-pointer items-center gap-2.5 text-[#64748B]">
             <input
               type="checkbox"
@@ -186,7 +201,7 @@ export default function LoginForm() {
           disabled={loading}
           aria-disabled={loading}
           aria-describedby={statusId}
-          className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#0A4A82] px-4 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(10,74,130,0.26)] transition hover:bg-[#083B68] hover:shadow-[0_16px_36px_rgba(10,74,130,0.32)] active:translate-y-px active:shadow-none disabled:cursor-not-allowed disabled:opacity-70 focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
+          className="anim-field flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0A4A82] to-[#12689e] px-4 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(10,74,130,0.3)] transition hover:-translate-y-0.5 hover:from-[#083B68] hover:to-[#0d5686] hover:shadow-[0_18px_40px_rgba(10,74,130,0.4)] active:translate-y-0 active:shadow-none disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[#0A4A82] focus:ring-offset-2"
         >
           {loading && (
             <span
